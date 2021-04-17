@@ -27,9 +27,13 @@ import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.solver.search.*;
 import grupo1.search.caperucita.actions.juntarDulce;
 import grupo1.search.caperucita.actions.irAbajo;
+import grupo1.search.caperucita.actions.irAbajoJuntarDulce;
 import grupo1.search.caperucita.actions.irIzquierda;
+import grupo1.search.caperucita.actions.irIzquierdaJuntarDulce;
 import grupo1.search.caperucita.actions.irDerecha;
+import grupo1.search.caperucita.actions.irDerechaJuntarDulce;
 import grupo1.search.caperucita.actions.irArriba;
+import grupo1.search.caperucita.actions.irArribaJuntarDulce;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,11 +51,15 @@ public class CaperucitaAgent extends SearchBasedAgent {
 
         // Create the operators
         Vector<SearchAction> operators = new Vector<SearchAction>();
-        operators.addElement(new juntarDulce());
-        operators.addElement(new irIzquierda());
+        
+        operators.addElement(new irArribaJuntarDulce());
         operators.addElement(new irArriba());
+        operators.addElement(new irDerechaJuntarDulce());
         operators.addElement(new irDerecha());
+        operators.addElement(new irAbajoJuntarDulce());
         operators.addElement(new irAbajo());
+        operators.addElement(new irIzquierdaJuntarDulce());        
+        operators.addElement(new irIzquierda());
 
         // Create the Problem which the Caperucita will resolve
         Problem problem = new Problem(goal, caperucitaState, operators);

@@ -25,7 +25,7 @@ import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
 import grupo1.search.caperucita.*;
 
-public class irArriba extends SearchAction {
+public class irArribaJuntarDulce extends SearchAction {
 
     /**
      * See comments in the Eat class.
@@ -39,13 +39,18 @@ public class irArriba extends SearchAction {
         int col = caperucitaState.getColumnPosition();
         int nextRow = caperucitaState.moverArriba(row,col);
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(nextRow,col);
-        
+        int [][] bosque = caperucitaState.getBosque();
+     
         /* The agent can only go up when the cell is not empty */
-        if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]==0
-        		&& listaDulces.size()==0) {
+        if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]!=1
+        		&& listaDulces.size()>0) {
         	
-        	caperucitaState.setRowPosition(caperucitaState.moverArriba(row,col));
-        	caperucitaState.setPosicionLobo(null);
+        	caperucitaState.setRowPosition(nextRow);
+        	
+        	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
+        	
+        	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        	caperucitaState.setBosque(bosque);
         	
         	return caperucitaState;
         }
@@ -62,19 +67,28 @@ public class irArriba extends SearchAction {
         CaperucitaEnvironmentState environmentState = (CaperucitaEnvironmentState) est;
         CaperucitaAgentState caperucitaState = ((CaperucitaAgentState) ast);
 
+
         int row = environmentState.getAgentPosition()[0];
         int col = environmentState.getAgentPosition()[1];
-        
         row = caperucitaState.moverArriba(row,col);
+         
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
-        
-        if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]==0
-        		&& listaDulces.size()==0) {
+        int [][] bosque = environmentState.getBosque();
+      
+        if (listaDulces.size()>0) {
         	
-            caperucitaState.setRowPosition(row);
+        	caperucitaState.setRowPosition(row);
             environmentState.setAgentPosition(new int[] {row, col});
+        	
+        	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
+        	environmentState.setBosque(bosque);
+        	
+        	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        	caperucitaState.setBosque(bosque);
+        	
+        	return environmentState;
         }
-  
+          
         return environmentState;
     }
 
@@ -91,6 +105,6 @@ public class irArriba extends SearchAction {
      */
     @Override
     public String toString() {
-        return "irArriba";
+        return "irArribaJuntarDulce";
     }
 }

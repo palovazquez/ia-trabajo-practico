@@ -36,9 +36,6 @@ public class juntarDulce extends SearchAction {
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
         CaperucitaAgentState caperucitaState = (CaperucitaAgentState) s;
 
-        int row = caperucitaState.getRowPosition();
-        int col = caperucitaState.getColumnPosition();
-
         /* The 'Eat' action can be selected only if there is food in the current
          * position. Otherwise return 'null'. */
         

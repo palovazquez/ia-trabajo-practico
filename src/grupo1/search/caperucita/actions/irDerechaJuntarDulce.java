@@ -17,15 +17,13 @@
  */
 package grupo1.search.caperucita.actions;
 
-import java.util.ArrayList;
-
+import frsf.cidisi.faia.examples.search.pacman.*;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
-import grupo1.search.caperucita.*;
 
-public class irArriba extends SearchAction {
+public class irDerechaJuntarDulce extends SearchAction {
 
     /**
      * See comments in the Eat class.
@@ -33,24 +31,31 @@ public class irArriba extends SearchAction {
     @Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
 
-        CaperucitaAgentState caperucitaState = (CaperucitaAgentState) s;
+        PacmanAgentState pacmanState = (PacmanAgentState) s;
 
-        int row = caperucitaState.getRowPosition();
-        int col = caperucitaState.getColumnPosition();
-        int nextRow = caperucitaState.moverArriba(row,col);
-        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(nextRow,col);
-        
-        /* The agent can only go up when the cell is not empty */
-        if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]==0
-        		&& listaDulces.size()==0) {
-        	
-        	caperucitaState.setRowPosition(caperucitaState.moverArriba(row,col));
-        	caperucitaState.setPosicionLobo(null);
-        	
-        	return caperucitaState;
+        pacmanState.increaseVisitedCellsCount();
+
+        int row = pacmanState.getRowPosition();
+        int col = pacmanState.getColumnPosition();
+
+        // Check the limits of the world
+        if (col == 3) {
+            col = 0;
+        } else {
+            col = col + 1;
         }
-        
-        return null;
+
+        pacmanState.setColumnPosition(col);
+
+        /* The agent can always go right */
+        if (pacmanState.getWorldPosition(row, col) ==
+                PacmanPerception.UNKNOWN_PERCEPTION) {
+
+            pacmanState.setWorldPosition(row, col,
+                    PacmanPerception.EMPTY_PERCEPTION);
+        }
+
+        return pacmanState;
     }
 
     /**
@@ -59,22 +64,25 @@ public class irArriba extends SearchAction {
     @Override
     public EnvironmentState execute(AgentState ast, EnvironmentState est) {
 
-        CaperucitaEnvironmentState environmentState = (CaperucitaEnvironmentState) est;
-        CaperucitaAgentState caperucitaState = ((CaperucitaAgentState) ast);
+        PacmanEnvironmentState environmentState = (PacmanEnvironmentState) est;
+        PacmanAgentState pacmanState = ((PacmanAgentState) ast);
+
+        pacmanState.increaseVisitedCellsCount();
 
         int row = environmentState.getAgentPosition()[0];
         int col = environmentState.getAgentPosition()[1];
-        
-        row = caperucitaState.moverArriba(row,col);
-        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
-        
-        if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]==0
-        		&& listaDulces.size()==0) {
-        	
-            caperucitaState.setRowPosition(row);
-            environmentState.setAgentPosition(new int[] {row, col});
+
+        // Check the limits of the world
+        if (col == 3) {
+            col = 0;
+        } else {
+            col = col + 1;
         }
-  
+
+        pacmanState.setColumnPosition(col);
+
+        environmentState.setAgentPosition(new int[] {row, col});
+
         return environmentState;
     }
 
@@ -91,6 +99,6 @@ public class irArriba extends SearchAction {
      */
     @Override
     public String toString() {
-        return "irArriba";
+        return "GoRight";
     }
 }

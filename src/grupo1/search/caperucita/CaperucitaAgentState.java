@@ -30,7 +30,6 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     private int[][] bosque;
     private int[] posicionActual;
     private int[] posicionInicial;
-    private int[] posicionAnterior;
     private int[] posicionLobo;
     private ArrayList<int[]> campoFlores;
     private int cantidadDulces;
@@ -50,7 +49,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         bosque = new int[9][14];
         posicionActual = new int[2];
         posicionInicial = new int[2];
-        posicionAnterior = new int[2];
+        //posicionAnterior = new int[2];
         posicionLobo = new int[2];
         campoFlores = new ArrayList<>();
         cantidadDulces = 0;
@@ -247,9 +246,6 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         this.setCantidadDulces(0);
         this.setVidas(3);
     }
-
-    
-    
     
     public int[][] getBosque() {
 		return bosque;
@@ -348,7 +344,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     }
     
 
-    
+   /*
     public int[] getPosicionAnterior() {
 		return posicionAnterior;
 	}
@@ -356,7 +352,8 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 	public void setPosicionAnterior(int[] posicionAnterior) {
 		this.posicionAnterior = posicionAnterior;
 	}
-
+*/
+    
 	public int[] getPosicionLobo() {
 		return posicionLobo;
 	}
@@ -425,7 +422,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 		       return false;
 		}else return false;
 	}
-
+/*
 	public ArrayList<int[]> pasoPorDulce(){
 		ArrayList<int[]> listaDulces = new ArrayList<>();
 
@@ -443,7 +440,30 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 		
 		return listaDulces;
 	};
+*/
+	public ArrayList<int[]> pasoPorDulce(int nextRow,int nextCol){
+		
+		
+		ArrayList<int[]> listaDulces = new ArrayList<>();
+		int[] posicionAnterior = new int[] {posicionActual[0],posicionActual[1]};
+		int[] posicionNueva = new int[] {nextRow,nextCol};
+		
+		
+		if(posicionAnterior[0]==posicionNueva[0]){
+			for(int i=0;i<Math.abs(posicionNueva[1]-posicionAnterior[1]);i++){
+				if(bosque[posicionAnterior[0]][Math.min(posicionNueva[1], posicionAnterior[1])+i]==2) listaDulces.add(new int[] {posicionAnterior[0], Math.min(posicionNueva[1], posicionAnterior[1])+i});
+			}
+		}
 
+		if(posicionAnterior[1]==posicionNueva[1]){
+			for(int i=0;i<Math.abs(posicionNueva[0]-posicionAnterior[0]);i++){
+				if(bosque[Math.min(posicionNueva[0], posicionAnterior[0])+i][posicionAnterior[1]]==2) listaDulces.add(new int[] {posicionAnterior[0], Math.min(posicionNueva[1], posicionAnterior[1])+i});
+			}
+		}
+		
+		return listaDulces;
+	};
+	
 	public boolean llegoCampoFlores() {
 		if(bosque[posicionActual[0]][posicionActual[1]]==3) return true;
 		else return false;

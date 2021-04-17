@@ -25,6 +25,8 @@ public class CaperucitaPerception extends Perception {
 
     public static int VACIO = 0;
     public static int ARBOL = 1;
+    public static int DULCE = 2;
+    public static int CAMPOFLORES = 3;
 
     private boolean loboIzquierda;
     private boolean loboArriba;
