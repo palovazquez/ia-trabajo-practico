@@ -73,6 +73,7 @@ public class irArriba extends SearchAction {
         	
             caperucitaState.setRowPosition(row);
             environmentState.setAgentPosition(new int[] {row, col});
+            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
         }
   
         return environmentState;
@@ -83,7 +84,7 @@ public class irArriba extends SearchAction {
      */
     @Override
     public Double getCost() {
-        return new Double(0);
+        return 0.0;
     }
 
     /**

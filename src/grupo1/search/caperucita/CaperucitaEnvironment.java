@@ -19,12 +19,13 @@ package grupo1.search.caperucita;
 
 import frsf.cidisi.faia.agent.*;
 import frsf.cidisi.faia.environment.Environment;
+import grupo1.escenarios.Escenario;
 
 public class CaperucitaEnvironment extends Environment {
 
-    public CaperucitaEnvironment() {
+    public CaperucitaEnvironment(Escenario escenario) {
         // Create the environment state
-        this.environmentState = new CaperucitaEnvironmentState();
+        this.environmentState = new CaperucitaEnvironmentState(escenario);
     }
 
     @Override
@@ -66,20 +67,20 @@ public class CaperucitaEnvironment extends Environment {
     @Override
     public boolean agentFailed(Action actionReturned) {
 
-        CaperucitaEnvironmentState pacmanEnvironmentState =
+        CaperucitaEnvironmentState caperucitaEnvironmentState =
                 this.getEnvironmentState();
 
-        int agentEnergy = pacmanEnvironmentState.getVidas();
+        int caperucitaVidas = caperucitaEnvironmentState.getVidas();
 
-        // FIXME: The pacman agent always has the same energy
+        // FIXME: The caperucita agent always has the same energy
         // If the agent has no energy, he failed
-        if (agentEnergy <= 0)
+        if (caperucitaVidas <= 0)
             return true;
 
         return false;
     }
 
-    // The following methods are Pacman-specific:
+    // The following methods are Caperucita-specific:
     
     public boolean getLoboArriba(int row, int col) {
         return ((CaperucitaEnvironmentState) this.environmentState)

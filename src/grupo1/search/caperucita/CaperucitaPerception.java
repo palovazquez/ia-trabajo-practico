@@ -48,7 +48,7 @@ public class CaperucitaPerception extends Perception {
      */
     @Override
     public void initPerception(Agent agent, Environment environment) {
-        CaperucitaAgent caperucitaAgent = (CaperucitaAgent) agent;
+//      CaperucitaAgent caperucitaAgent = (CaperucitaAgent) agent;
         CaperucitaEnvironment caperucitaEnvironment = (CaperucitaEnvironment) environment;
         CaperucitaEnvironmentState environmentState =
                 caperucitaEnvironment.getEnvironmentState();

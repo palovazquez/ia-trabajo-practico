@@ -18,14 +18,13 @@
 package grupo1.search.caperucita;
 
 import frsf.cidisi.faia.agent.Perception;
-
 import java.util.Vector;
 import frsf.cidisi.faia.agent.search.Problem;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgent;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.solver.search.*;
-import grupo1.search.caperucita.actions.juntarDulce;
+import grupo1.escenarios.Escenario;
 import grupo1.search.caperucita.actions.irAbajo;
 import grupo1.search.caperucita.actions.irAbajoJuntarDulce;
 import grupo1.search.caperucita.actions.irIzquierda;
@@ -40,13 +39,13 @@ import java.util.logging.Logger;
 
 public class CaperucitaAgent extends SearchBasedAgent {
 
-    public CaperucitaAgent() {
+    public CaperucitaAgent(Escenario escenario) {
 //
         // The Caperucita Goal
         CaperucitaGoal goal = new CaperucitaGoal();
 
         // The Caperucita Agent State
-        CaperucitaAgentState caperucitaState = new CaperucitaAgentState();
+        CaperucitaAgentState caperucitaState = new CaperucitaAgentState(escenario);
         this.setAgentState(caperucitaState);
 
         // Create the operators

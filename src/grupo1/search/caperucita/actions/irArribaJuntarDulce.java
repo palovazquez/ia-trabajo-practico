@@ -82,7 +82,8 @@ public class irArribaJuntarDulce extends SearchAction {
         	
         	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
         	environmentState.setBosque(bosque);
-        	
+            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
+
         	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
         	caperucitaState.setBosque(bosque);
         	
@@ -97,7 +98,7 @@ public class irArribaJuntarDulce extends SearchAction {
      */
     @Override
     public Double getCost() {
-        return new Double(0);
+        return 0.0;
     }
 
     /**
