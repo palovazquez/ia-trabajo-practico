@@ -1,106 +1,91 @@
-/*
- * Copyright 2007-2009 Georgina Stegmayer, Milagros GutiÃ©rrez, Jorge Roa,
- * Luis Ignacio Larrateguy y Milton Pividori.
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package grupo1.search.caperucita.actions;
 
-import frsf.cidisi.faia.examples.search.pacman.*;
+
+import java.util.ArrayList;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
+import grupo1.search.caperucita.*;
 
 public class irIzquierda extends SearchAction {
 
-    /**
-     * See comments in the Eat class.
-     */
-    @Override
-    public SearchBasedAgentState execute(SearchBasedAgentState s) {
 
-        PacmanAgentState pacmanState = (PacmanAgentState) s;
+	    /**
+	     * See comments in the Eat class.
+	     */
+	    @Override
+	    public SearchBasedAgentState execute(SearchBasedAgentState s) {
 
-        pacmanState.increaseVisitedCellsCount();
+	        CaperucitaAgentState caperucitaState = (CaperucitaAgentState) s;
 
-        int row = pacmanState.getRowPosition();
-        int col = pacmanState.getColumnPosition();
+	        int row = caperucitaState.getRowPosition();
+	        int col = caperucitaState.getColumnPosition();
+	        int nextCol = caperucitaState.moverIzquierda(row,col);
+	        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,nextCol);
+	        
+	        /* The agent can only go down when the cell is not empty */
+	        /* Caperucita sólo puede ir izquierda cuando se cumplan las condiciones:
+	         * el lobo no esté izquierda 
+	         * en la posición inmediata de izquierda no se encuentre un árbol
+	         * cuando no haya duslces en el camino, si hay dulces debería irIzquierdaYJuyntqarDulces*/
+	        /*!!!!!!! Ver el == 0 en irArriba*/
+	        if (!caperucitaState.hayLoboIzquierda(row,col) && caperucitaState.getBosque()[row][col-1]!=1
+	        		&& listaDulces.size()==0) {
+	        	caperucitaState.setColumnPosition(caperucitaState.moverIzquierda(row,col));
+	        	caperucitaState.setPosicionLobo(null);
+	        	
+	        	return caperucitaState;
+	        }
+	        
+	        return null;
+	    }
+	    
 
-        // Check the limits of the world
-        if (col == 0) {
-            col = 3;
-        } else {
-            col = col - 1;
-        }
+	    /**
+	     * See comments in the Eat class.
+	     */
+	    @Override
+	    public EnvironmentState execute(AgentState ast, EnvironmentState est) {
 
-        pacmanState.setColumnPosition(col);
+	        CaperucitaEnvironmentState environmentState = (CaperucitaEnvironmentState) est;
+	        CaperucitaAgentState caperucitaState = ((CaperucitaAgentState) ast);
 
-        /* The agent can only go left when the cell is not empty */
-        if (pacmanState.getWorldPosition(row, col) !=
-                PacmanPerception.EMPTY_PERCEPTION) {
+	        int row = environmentState.getAgentPosition()[0];
+	        int col = environmentState.getAgentPosition()[1];
+	        
+	        col = caperucitaState.moverIzquierda(row,col);
+	        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
+	        /* Caperucita sólo puede ir izquierda cuando se cumplan las condiciones:
+	         * el lobo no esté izquierda 
+	         * en la posición inmediata de izquierda no se encuentre un árbol
+	         * cuando no haya duslces en el camino, si hay dulces debería irIzquierdaYJuyntqarDulces*/
+	        
+	        if (!caperucitaState.hayLoboIzquierda(row,col) && caperucitaState.getBosque()[row][col-1]!=1
+	        		&& listaDulces.size()==0) {
+	        	
+	        	/*Consultar siguiente linea, ¿no debería modificar sólo el agente en la línea 69?*/
+	            caperucitaState.setColumnPosition(col);
+	            environmentState.setAgentPosition(new int[] {row, col});
+	            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
+	        }
+	  
+	        return environmentState;
+	    }
 
-            pacmanState.setWorldPosition(row, col,
-                    PacmanPerception.EMPTY_PERCEPTION);
+	    /**
+	     * See comments in the Eat class.
+	     */
+	    @Override
+	    public Double getCost() {
+	        return 0.0;
+	    }
 
-            return pacmanState;
-        }
-
-        return null;
-    }
-
-    /**
-     * See comments in the Eat class.
-     */
-    @Override
-    public EnvironmentState execute(AgentState ast, EnvironmentState est) {
-
-        PacmanEnvironmentState environmentState = (PacmanEnvironmentState) est;
-        PacmanAgentState pacmanState = ((PacmanAgentState) ast);
-
-        pacmanState.increaseVisitedCellsCount();
-
-        int row = environmentState.getAgentPosition()[0];
-        int col = environmentState.getAgentPosition()[1];
-
-        // Check the limits of the world
-        if (col == 0) {
-            col = 3;
-        } else {
-            col = col - 1;
-        }
-
-        pacmanState.setColumnPosition(col);
-
-        environmentState.setAgentPosition(new int[] {row, col});
-        
-        return environmentState;
-    }
-
-    /**
-     * See comments in the Eat class.
-     */
-    @Override
-    public Double getCost() {
-        return new Double(0);
-    }
-
-    /**
-     * See comments in the Eat class.
-     */
-    @Override
-    public String toString() {
-        return "GoLeft";
-    }
-}
+	    /**
+	     * See comments in the Eat class.
+	     */
+	    @Override
+	    public String toString() {
+	        return "irIzquierda";
+	    }
+	}

@@ -283,11 +283,53 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 		int f = moverArriba(fila,columna);
 		if(posicionLobo[1]==columna) {
 		      for(int i=0; i<fila-f;i++){
+		    	  // proxima línea no debería ser fila - 1
 		            if(posicionLobo[0]==(fila+i)) return true;
 		       };
 		       return false;
 		}else return false;
 	}
+	
+	
+	public boolean hayLoboAbajo(int fila, int columna) {
+		int f = moverAbajo(fila,columna);
+		if(posicionLobo[1]==columna) {
+		      for(int i=0; i<f-fila;i++){
+		            if(posicionLobo[0]==(fila+i)) return true;
+		       };
+		       return false;
+		}else return false;
+	}
+	
+	public boolean hayLoboDerecha(int fila, int columna) {
+		int c = moverDerecha(fila,columna);
+		if(posicionLobo[0]==fila) {
+		      for(int i=0; i<c-columna;i++){
+		            if(posicionLobo[1]==(columna+i)) return true;
+		       };
+		       return false;
+		}else return false;
+	}
+	
+	public boolean hayLoboIzquierda(int fila, int columna) {
+		int c = moverIzquierda(fila,columna);
+		if(posicionLobo[0]==fila) {
+		      for(int i=0; i<columna-c;i++){
+		            if(posicionLobo[1]==(columna-i)) return true;
+		       };
+		       return false;
+		}else return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 /*
 	public ArrayList<int[]> pasoPorDulce(){
 		ArrayList<int[]> listaDulces = new ArrayList<>();

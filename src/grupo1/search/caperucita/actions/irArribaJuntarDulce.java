@@ -70,6 +70,7 @@ public class irArribaJuntarDulce extends SearchAction {
 
         int row = environmentState.getAgentPosition()[0];
         int col = environmentState.getAgentPosition()[1];
+        //¿Está bien row o es nextRow en la próximaLinea?
         row = caperucitaState.moverArriba(row,col);
          
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
