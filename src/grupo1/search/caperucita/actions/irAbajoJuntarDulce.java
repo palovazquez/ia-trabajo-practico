@@ -1,27 +1,12 @@
-/*
- * Copyright 2007-2009 Georgina Stegmayer, Milagros GutiÃ©rrez, Jorge Roa,
- * Luis Ignacio Larrateguy y Milton Pividori.
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package grupo1.search.caperucita.actions;
 
-import frsf.cidisi.faia.examples.search.pacman.*;
+import java.util.ArrayList;
+
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
+import grupo1.search.caperucita.*;
 
 public class irAbajoJuntarDulce extends SearchAction {
 
@@ -31,32 +16,36 @@ public class irAbajoJuntarDulce extends SearchAction {
     @Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
 
-        PacmanAgentState pacmanState = (PacmanAgentState) s;
+        CaperucitaAgentState caperucitaState = (CaperucitaAgentState) s;
 
-        // Increase the visited cells count
-        pacmanState.increaseVisitedCellsCount();
-
-        int row = pacmanState.getRowPosition();
-        int col = pacmanState.getColumnPosition();
-
-        // Check the limits of the world
-        if (row == 3) {
-            row = 0;
-        } else {
-            row = row + 1;
+        int row = caperucitaState.getRowPosition();
+        int col = caperucitaState.getColumnPosition();
+        int nextRow = caperucitaState.moverAbajo(row,col);
+        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(nextRow,col);
+        int [][] bosque = caperucitaState.getBosque();
+     
+        /* Caperucita sólo puede ir abajo cuando se cumplan las condiciones:
+         * el lobo no esté abajo 
+         * en la posición inmediata de abajo no se encuentre un árbol
+         * cuando haya dulces en el camino, si no hay dulces debería sólo irAbajo*/
+        if (!caperucitaState.hayLoboAbajo(row,col) && caperucitaState.getBosque()[row+1][col]!=1
+        		&& listaDulces.size()>0) {
+        	
+        	caperucitaState.setRowPosition(nextRow);
+        	
+        	//seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia abajo que ahora esos casilleros están vacios (=O))
+        	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
+        	
+        	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        	caperucitaState.setBosque(bosque);
+        	
+        	//Borramos la posción del lobo que se obtuvo en la percepción
+        	caperucitaState.setPosicionLobo(null);
+        	
+        	return caperucitaState;
         }
-
-        pacmanState.setRowPosition(row);
-
-        /* The agent can always go down */
-        if (pacmanState.getWorldPosition(row, col) ==
-                PacmanPerception.UNKNOWN_PERCEPTION) {
-
-            pacmanState.setWorldPosition(row, col,
-                    PacmanPerception.EMPTY_PERCEPTION);
-        }
-
-        return pacmanState;
+        
+        return null;
     }
 
     /**
@@ -65,24 +54,34 @@ public class irAbajoJuntarDulce extends SearchAction {
     @Override
     public EnvironmentState execute(AgentState ast, EnvironmentState est) {
 
-        PacmanEnvironmentState environmentState = (PacmanEnvironmentState) est;
-        PacmanAgentState pacmanState = ((PacmanAgentState) ast);
+        CaperucitaEnvironmentState environmentState = (CaperucitaEnvironmentState) est;
+        CaperucitaAgentState caperucitaState = ((CaperucitaAgentState) ast);
 
-        pacmanState.increaseVisitedCellsCount();
 
         int row = environmentState.getAgentPosition()[0];
         int col = environmentState.getAgentPosition()[1];
+        row = caperucitaState.moverAbajo(row,col);
+         
+        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
+        int [][] bosque = environmentState.getBosque();
+      
+        if (listaDulces.size()>0) {
+        	
+        	caperucitaState.setRowPosition(row);
+            environmentState.setAgentPosition(new int[] {row, col});
+            
+          //seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia abajo que ahora esos casilleros están vacios (=O))
+        	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
+        	environmentState.setBosque(bosque);
+            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 
-        if (row == 3) {
-            row = 0;
-        } else {
-            row = row + 1;
+        	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        	caperucitaState.setBosque(bosque);
+        	
+        	
+        	return environmentState;
         }
-
-        pacmanState.setRowPosition(row);
-
-        environmentState.setAgentPosition(new int[] {row, col});
-        
+          
         return environmentState;
     }
 
@@ -91,7 +90,7 @@ public class irAbajoJuntarDulce extends SearchAction {
      */
     @Override
     public Double getCost() {
-        return new Double(0);
+        return 0.0;
     }
 
     /**
@@ -99,6 +98,6 @@ public class irAbajoJuntarDulce extends SearchAction {
      */
     @Override
     public String toString() {
-        return "GoDown";
+        return "irAbajoJuntarDulce";
     }
 }
