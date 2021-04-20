@@ -54,7 +54,7 @@ public class irDerecha extends SearchAction {
 	        int row = environmentState.getAgentPosition()[0];
 	        int col = environmentState.getAgentPosition()[1];
 	        
-	        col = caperucitaState.moverDerecha(row,col);
+	        int nextCol = caperucitaState.moverDerecha(row,col);
 	        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
 	        /* Caperucita sólo puede ir derecha cuando se cumplan las condiciones:
 	         * el lobo no esté derecha 
@@ -65,8 +65,8 @@ public class irDerecha extends SearchAction {
 	        		&& listaDulces.size()==0) {
 	        	
 	        	/*Consultar siguiente linea, ¿no debería modificar sólo el agente en la línea 69?*/
-	            caperucitaState.setColumnPosition(col);
-	            environmentState.setAgentPosition(new int[] {row, col});
+	            //caperucitaState.setColumnPosition(nextCol);
+	            environmentState.setAgentPosition(new int[] {row, nextCol});
 	            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 	        }
 	  

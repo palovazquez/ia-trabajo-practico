@@ -60,23 +60,23 @@ public class irDerechaJuntarDulce extends SearchAction {
 
         int row = environmentState.getAgentPosition()[0];
         int col = environmentState.getAgentPosition()[1];
-        col = caperucitaState.moverDerecha(row,col);
+        int nextCol = caperucitaState.moverDerecha(row,col);
          
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
         int [][] bosque = environmentState.getBosque();
       
         if (listaDulces.size()>0) {
         	
-        	caperucitaState.setRowPosition(row);
-            environmentState.setAgentPosition(new int[] {row, col});
+        	//caperucitaState.setRowPosition(row);
+            environmentState.setAgentPosition(new int[] {row, nextCol});
             
           //seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia derecha que ahora esos casilleros están vacios (=O))
         	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
         	environmentState.setBosque(bosque);
             environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 
-        	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
-        	caperucitaState.setBosque(bosque);
+        	//caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        	//caperucitaState.setBosque(bosque);
         	
         	
         	return environmentState;

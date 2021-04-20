@@ -54,7 +54,7 @@ public class irAbajo extends SearchAction {
 	        int row = environmentState.getAgentPosition()[0];
 	        int col = environmentState.getAgentPosition()[1];
 	        
-	        row = caperucitaState.moverAbajo(row,col);
+	        int nextRow = caperucitaState.moverAbajo(row,col);
 	        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
 	        /* Caperucita sólo puede ir abajo cuando se cumplan las condiciones:
 	         * el lobo no esté abajo 
@@ -65,8 +65,8 @@ public class irAbajo extends SearchAction {
 	        		&& listaDulces.size()==0) {
 	        	
 	        	/*Consultar siguiente linea, ¿no debería modificar sólo el agente en la línea 69?*/
-	            caperucitaState.setRowPosition(row);
-	            environmentState.setAgentPosition(new int[] {row, col});
+	            //caperucitaState.setRowPosition(row);
+	            environmentState.setAgentPosition(new int[] {nextRow, col});
 	            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 	        }
 	  

@@ -66,8 +66,8 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     public SearchBasedAgentState clone() {
         int[][] newWorld = new int[9][14];
 
-        for (int row = 0; row < bosque.length; row++) {
-            for (int col = 0; col < bosque.length; col++) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 14; col++) {
                 newWorld[row][col] = bosque[row][col];
             }
         }
@@ -111,6 +111,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         this.setColumnPosition(escenario.getPosicionInicialCaperucita()[1]);
         this.setCantidadDulces(0);
         this.setVidas(escenario.getVidas());
+        this.setPosicionLobo(null);
     }
     
     public int[][] getBosque() {
@@ -128,15 +129,24 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     public String toString() {
         String str = "";
 
-        str = str + " position=\"(" + getRowPosition() + "," + "" + getColumnPosition() + ")\"";
-        str = str + " energy=\"" + vidas + "\"\n";
+        str = str + " Posición=\"(" + getRowPosition() + "," + "" + getColumnPosition() + ")\"";
+        str = str + " Cantidad Dulces=\"" + cantidadDulces + "\"";
+        str = str + " Vidas=\"" + vidas + "\"";
 
-        str = str + "world=\"[ \n";
-        for (int row = 0; row < bosque.length; row++) {
+        if(posicionLobo==null) str = str + " Posición Lobo=? \n";
+        else str = str + " Posición lobo=\"(" + posicionLobo[0] + "," + "" + posicionLobo[1] + ")\"\n\n";
+        
+        str = str + "BOSQUE=\"[ \n";
+        for (int row = 0; row < 9; row++) {
             str = str + "[ ";
-            for (int col = 0; col < bosque.length; col++) {
-                if (bosque[row][col] == -1) {
-                    str = str + "* ";
+            for (int col = 0; col < 14; col++) {
+                
+            	if (posicionLobo!=null) {
+            		if (row==posicionLobo[0] && col==posicionLobo[1]) {           			
+                        str = str + "L ";
+            		}
+                }else if(row==getRowPosition() && col==getColumnPosition()){
+                    str = str + "C ";
                 } else {
                     str = str + bosque[row][col] + " ";
                 }
@@ -144,7 +154,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
             str = str + " ]\n";
         }
         str = str + " ]\"";
-
+        
         return str;
     }
 
@@ -160,8 +170,8 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         int[][] worldObj = ((CaperucitaAgentState) obj).getWorld();
         int[] positionObj = ((CaperucitaAgentState) obj).getPosition();
 
-        for (int row = 0; row < bosque.length; row++) {
-            for (int col = 0; col < bosque.length; col++) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 14; col++) {
                 if (bosque[row][col] != worldObj[row][col]) {
                     return false;
                 }
@@ -209,7 +219,8 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         return posicionActual[1];
     }
     
-
+    
+    
    /*
     public int[] getPosicionAnterior() {
 		return posicionAnterior;
@@ -245,12 +256,13 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 	}
     
     public int moverArriba(int fila, int columna){
-        int f=fila;
+        int f=fila,aux;
            do{
                f=f-1;
-           }while (bosque[f][columna]==0);
+               aux=bosque[f][columna];
+           }while (bosque[f][columna]!=1);
            
-           return f;
+           return f+1;
        };
        
     public int moverIzquierda(int fila, int columna){
@@ -259,7 +271,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     		c=c-1;
     	}while (bosque[fila][c]==0);
     	        
-    	return c;
+    	return c+1;
     };
     	    
     public int moverDerecha(int fila, int columna){
@@ -267,7 +279,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     	do{
     		c=c+1;
     		}while (bosque[fila][c]==0);  
-    	return c;
+    	return c-1;
     };
 
     public int moverAbajo(int fila, int columna){
@@ -276,58 +288,58 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     		f=f+1;
     	}while (bosque[f][columna]==0);
     	
-    	return f;
+    	return f-1;
     }
     
 	public boolean hayLoboArriba(int fila, int columna) {
 		int f = moverArriba(fila,columna);
-		if(posicionLobo[1]==columna) {
-		      for(int i=0; i<fila-f;i++){
-		    	  // proxima línea no debería ser fila - 1
-		            if(posicionLobo[0]==(fila+i)) return true;
-		       };
-		       return false;
+		
+		if(posicionLobo!=null) {
+			if(posicionLobo[1]==columna) {
+			      for(int i=0; i<fila-f;i++){
+			            if(posicionLobo[0]==(fila-i)) return true;
+			       };
+			}return false;
+			
 		}else return false;
 	}
 	
-	
 	public boolean hayLoboAbajo(int fila, int columna) {
 		int f = moverAbajo(fila,columna);
-		if(posicionLobo[1]==columna) {
-		      for(int i=0; i<f-fila;i++){
-		            if(posicionLobo[0]==(fila+i)) return true;
-		       };
-		       return false;
+		
+		if(posicionLobo!=null) {
+			if(posicionLobo[1]==columna) {
+			      for(int i=0; i<f-fila;i++){
+			            if(posicionLobo[0]==(fila+i)) return true;
+			       };
+			}return false;	
 		}else return false;
 	}
 	
 	public boolean hayLoboDerecha(int fila, int columna) {
 		int c = moverDerecha(fila,columna);
-		if(posicionLobo[0]==fila) {
-		      for(int i=0; i<c-columna;i++){
-		            if(posicionLobo[1]==(columna+i)) return true;
-		       };
-		       return false;
+		
+		if(posicionLobo!=null) {
+			if(posicionLobo[0]==fila) {
+			      for(int i=0; i<c-columna;i++){
+			            if(posicionLobo[1]==(columna+i)) return true;
+			       };
+			}return false;
+				
 		}else return false;
 	}
 	
 	public boolean hayLoboIzquierda(int fila, int columna) {
 		int c = moverIzquierda(fila,columna);
-		if(posicionLobo[0]==fila) {
-		      for(int i=0; i<columna-c;i++){
-		            if(posicionLobo[1]==(columna-i)) return true;
-		       };
-		       return false;
+		
+		if(posicionLobo!=null) {
+			if(posicionLobo[0]==fila) {
+			      for(int i=0; i<columna-c;i++){
+			            if(posicionLobo[1]==(columna-i)) return true;
+			       };
+			}return false;
 		}else return false;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 /*

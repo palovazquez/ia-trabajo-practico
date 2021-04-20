@@ -32,9 +32,9 @@ public class CaperucitaSearchMain {
     	Random rd = new Random();
     	int e= rd.nextInt(3);
     	
-    	CaperucitaAgent caperucitaAgent = new CaperucitaAgent(escenarios[e]);
+    	CaperucitaAgent caperucitaAgent = new CaperucitaAgent(escenarios[0]);
         
-        CaperucitaEnvironment caperucitaEnvironment = new CaperucitaEnvironment(escenarios[e]);
+        CaperucitaEnvironment caperucitaEnvironment = new CaperucitaEnvironment(escenarios[0]);
         
         SearchBasedAgentSimulator simulator =
                 new SearchBasedAgentSimulator(caperucitaEnvironment, caperucitaAgent);

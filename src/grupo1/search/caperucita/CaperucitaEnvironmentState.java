@@ -84,15 +84,25 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
     public String toString() {
         String str = "";
 
-        str = str + "[ \n";
-        for (int row = 0; row < bosque.length; row++) {
+        str = str + "Posición lobo=\"(" + loboPosicion[0] + "," + "" + loboPosicion[1] + ")\"\n\n";
+        
+        str = str + "AMBIENTE=\"[ \n";
+        
+        str = str + "\"[ \n";
+        for (int row = 0; row < 9; row++) {
             str = str + "[ ";
-            for (int col = 0; col < bosque.length; col++) {
-                str = str + bosque[row][col] + " ";
+            for (int col = 0; col < 14; col++) {
+                if (row==loboPosicion[0] && col==loboPosicion[1]) {
+                    str = str + "L ";
+                }else if(row==caperucitaPosicion[0] && col==caperucitaPosicion[1]){
+                    str = str + "C ";                	
+                }else {
+                    str = str + bosque[row][col] + " ";
+                }
             }
             str = str + " ]\n";
         }
-        str = str + " ]";
+        str = str + " ]\"";
 
         return str;
     }
