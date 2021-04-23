@@ -77,7 +77,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         newPosition[1] = posicionActual[1];
 
         CaperucitaAgentState newState = new CaperucitaAgentState(newWorld,
-                this.getRowPosition(), this.getColumnPosition(),this.cantidadDulces, this.vidas);
+                newPosition[0], newPosition[1],this.cantidadDulces, this.vidas);
         
         return newState;
     }
@@ -266,10 +266,11 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
        };
        
     public int moverIzquierda(int fila, int columna){
-    	int c=columna;
+    	int c=columna,aux;
     	do{
     		c=c-1;
-    	}while (bosque[fila][c]==0);
+            aux=bosque[fila][c];
+    	}while (bosque[fila][c]!=1);
     	        
     	return c+1;
     };
@@ -278,7 +279,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     	int c=columna;
     	do{
     		c=c+1;
-    		}while (bosque[fila][c]==0);  
+    		}while (bosque[fila][c]!=1);  
     	return c-1;
     };
 
@@ -286,7 +287,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     	int f=fila;
     	do{
     		f=f+1;
-    	}while (bosque[f][columna]==0);
+    	}while (bosque[f][columna]!=1);
     	
     	return f-1;
     }
@@ -367,17 +368,29 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 		ArrayList<int[]> listaDulces = new ArrayList<>();
 		int[] posicionAnterior = new int[] {posicionActual[0],posicionActual[1]};
 		int[] posicionNueva = new int[] {nextRow,nextCol};
-		
+		int menor,valorCelda;
 		
 		if(posicionAnterior[0]==posicionNueva[0]){
-			for(int i=0;i<Math.abs(posicionNueva[1]-posicionAnterior[1]);i++){
-				if(bosque[posicionAnterior[0]][Math.min(posicionNueva[1], posicionAnterior[1])+i]==2) listaDulces.add(new int[] {posicionAnterior[0], Math.min(posicionNueva[1], posicionAnterior[1])+i});
+			
+			menor=Math.min(posicionNueva[1], posicionAnterior[1]);
+			
+			for(int i=0;i<=Math.abs(posicionNueva[1]-posicionAnterior[1]);i++){
+				
+				valorCelda=bosque[posicionAnterior[0]][menor+i];
+				
+				if(valorCelda==2) listaDulces.add(new int[] {posicionAnterior[0], menor+i});
 			}
 		}
 
 		if(posicionAnterior[1]==posicionNueva[1]){
-			for(int i=0;i<Math.abs(posicionNueva[0]-posicionAnterior[0]);i++){
-				if(bosque[Math.min(posicionNueva[0], posicionAnterior[0])+i][posicionAnterior[1]]==2) listaDulces.add(new int[] {posicionAnterior[0], Math.min(posicionNueva[1], posicionAnterior[1])+i});
+			menor=Math.min(posicionNueva[0], posicionAnterior[0]);			
+
+			for(int i=0;i<=Math.abs(posicionNueva[0]-posicionAnterior[0]);i++){
+				valorCelda = bosque[menor+i][posicionAnterior[1]];
+				
+				if(valorCelda==2) {
+					listaDulces.add(new int[] {menor+i, posicionNueva[1]});
+				}
 			}
 		}
 		
@@ -385,7 +398,8 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 	};
 	
 	public boolean llegoCampoFlores() {
-		if(bosque[posicionActual[0]][posicionActual[1]]==3) return true;
+		int valorCelda =bosque[posicionActual[0]][posicionActual[1]];
+		if(valorCelda==3) return true;
 		else return false;
 	}
 	

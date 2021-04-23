@@ -175,39 +175,41 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
      }
     
     public int moverArriba(int fila, int columna){
-        int f=fila;
+        int f=fila,aux;
            do{
                f=f-1;
-           }while (bosque[f][columna]==0);
+               aux=bosque[f][columna];
+           }while (bosque[f][columna]!=1);
            
-           return f;
+           return f+1;
        };
        
-    public int moverIzquierda(int fila, int columna){
-    	int c=columna;
-    	do{
-    		c=c-1;
-    	}while (bosque[fila][c]==0);
-    	        
-    	return c;
-    };
+   public int moverIzquierda(int fila, int columna){
+       	int c=columna,aux;
+       	do{
+       		c=c-1;
+               aux=bosque[fila][c];
+       	}while (bosque[fila][c]!=1);
+       	        
+       	return c+1;
+       };
     	    
-    public int moverDerecha(int fila, int columna){
-    	int c=columna;
-    	do{
-    		c=c+1;
-    		}while (bosque[fila][c]==0);  
-    	return c;
-    };
+       public int moverDerecha(int fila, int columna){
+       	int c=columna;
+       	do{
+       		c=c+1;
+       		}while (bosque[fila][c]!=1);  
+       	return c-1;
+       };
 
-    public int moverAbajo(int fila, int columna){
-    	int f=fila;
-    	do{
-    		f=f+1;
-    	}while (bosque[f][columna]==0);
-    	
-    	return f;
-    };
+       public int moverAbajo(int fila, int columna){
+       	int f=fila;
+       	do{
+       		f=f+1;
+       	}while (bosque[f][columna]!=1);
+       	
+       	return f-1;
+       }
 
     	       
     	       

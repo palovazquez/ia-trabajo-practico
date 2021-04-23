@@ -29,8 +29,8 @@ public class CaperucitaSearchMain {
         
     	Escenario[] escenarios = obtenerEscenarios();
     	
-    	Random rd = new Random();
-    	int e= rd.nextInt(3);
+    	//Random rd = new Random();
+    	//int e= rd.nextInt(3);
     	
     	CaperucitaAgent caperucitaAgent = new CaperucitaAgent(escenarios[0]);
         

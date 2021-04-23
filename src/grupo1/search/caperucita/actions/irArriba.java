@@ -41,16 +41,18 @@ public class irArriba extends SearchAction {
         int row = environmentState.getAgentPosition()[0];
         int col = environmentState.getAgentPosition()[1];
         
-        int nextRow = caperucitaState.moverArriba(row,col);
-        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
+        int nextRow = caperucitaState.moverArriba(row, col);
+        /*ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
         
         if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]==0
         		&& listaDulces.size()==0) {
-        	
-            //caperucitaState.setRowPosition(row);
-            environmentState.setAgentPosition(new int[] {nextRow, col});
-            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
-        }
+        /*	
+        caperucitaState.setRowPosition(row);*/
+
+        caperucitaState.setRowPosition(nextRow);
+        environmentState.setAgentPosition(new int[] {nextRow, col});
+        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
+        //}*/
   
         return environmentState;
     }

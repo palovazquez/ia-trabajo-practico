@@ -67,7 +67,7 @@ public class irAbajoJuntarDulce extends SearchAction {
       
         if (listaDulces.size()>0) {
         	
-        	//caperucitaState.setRowPosition(row);
+        	caperucitaState.setRowPosition(row);
             environmentState.setAgentPosition(new int[] {nextRow, col});
             
           //seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia abajo que ahora esos casilleros están vacios (=O))
@@ -75,8 +75,8 @@ public class irAbajoJuntarDulce extends SearchAction {
         	environmentState.setBosque(bosque);
             environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 
-        	//caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
-        	//caperucitaState.setBosque(bosque);
+        	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        	caperucitaState.setBosque(bosque);
         	
         	
         	return environmentState;
