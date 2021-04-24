@@ -33,6 +33,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     private int[] posicionInicial;
     private int[] posicionLobo;
     private int cantidadDulces;
+    private ArrayList<int[]> casillerosRecorridos;
     private int vidas;
     
     private Escenario escenario;
@@ -41,6 +42,8 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         bosque = b;
         posicionActual = new int[] {row, col};
         posicionInicial = new int[2];
+        posicionLobo = new int[2];
+        casillerosRecorridos = new ArrayList<>();
         posicionInicial[0] = row;
         posicionInicial[1] = col;
         cantidadDulces = d;
@@ -52,6 +55,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         posicionActual = new int[2];
         posicionInicial = new int[2];
         posicionLobo = new int[2];
+        casillerosRecorridos = new ArrayList<>();
         cantidadDulces = 0;
         vidas = 0;
         this.escenario=escenario;
@@ -78,6 +82,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 
         CaperucitaAgentState newState = new CaperucitaAgentState(newWorld,
                 newPosition[0], newPosition[1],this.cantidadDulces, this.vidas);
+        newState.setPosicionLobo(posicionLobo);
         
         return newState;
     }
@@ -90,11 +95,21 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     public void updateState(Perception p) {
         CaperucitaPerception caperucitaPerception = (CaperucitaPerception) p;
         
-        if(caperucitaPerception.isLoboArriba()||caperucitaPerception.isLoboAbajo()||caperucitaPerception.isLoboIzquierda()||caperucitaPerception.isLoboDerecha()) {
-            int rowLobo = this.getPosicionLobo()[0];
-            int colLobo = this.getPosicionLobo()[1];
-        	
-            bosque[rowLobo][colLobo]=2;
+        if(caperucitaPerception.isLoboArriba()!=null) {
+        	this.posicionLobo[0] = caperucitaPerception.isLoboArriba()[0];
+        	this.posicionLobo[1]  = caperucitaPerception.isLoboArriba()[1];
+        
+        }else if(caperucitaPerception.isLoboAbajo()!=null) {
+           	this.posicionLobo[0] = caperucitaPerception.isLoboAbajo()[0];
+           	this.posicionLobo[1]  = caperucitaPerception.isLoboAbajo()[1];
+       	
+        }else if(caperucitaPerception.isLoboDerecha()!=null) {
+         	this.posicionLobo[0] = caperucitaPerception.isLoboDerecha()[0];
+            this.posicionLobo[1]  = caperucitaPerception.isLoboDerecha()[1];
+        
+       	}else if(caperucitaPerception.isLoboIzquierda()!=null) {
+        	this.posicionLobo[0] = caperucitaPerception.isLoboIzquierda()[0];
+           	this.posicionLobo[1]  = caperucitaPerception.isLoboIzquierda()[1];  
         }
         
         vidas = caperucitaPerception.getVidas();
@@ -111,10 +126,21 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         this.setColumnPosition(escenario.getPosicionInicialCaperucita()[1]);
         this.setCantidadDulces(0);
         this.setVidas(escenario.getVidas());
-        this.setPosicionLobo(null);
+        this.setPosicionLobo(new int[2]);
+        
+        this.casillerosRecorridos.add(posicionActual);
+        
     }
     
-    public int[][] getBosque() {
+    public ArrayList<int[]> getCasillerosRecorridos() {
+		return casillerosRecorridos;
+	}
+
+	public void setCasillerosRecorridos(ArrayList<int[]> casillerosRecorridos) {
+		this.casillerosRecorridos = casillerosRecorridos;
+	}
+
+	public int[][] getBosque() {
 		return bosque;
 	}
 
@@ -141,10 +167,11 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
             str = str + "[ ";
             for (int col = 0; col < 14; col++) {
                 
-            	if (posicionLobo!=null) {
-            		if (row==posicionLobo[0] && col==posicionLobo[1]) {           			
-                        str = str + "L ";
-            		}
+            	if (row==posicionLobo[0] && col==posicionLobo[1]) {           			
+            		if (posicionLobo[0]!=0 && posicionLobo[1]!=0) {           			
+                        str = str + "L ";	
+            		}else str = str + bosque[row][col] + " ";
+	
                 }else if(row==getRowPosition() && col==getColumnPosition()){
                     str = str + "C ";
                 } else {
@@ -167,16 +194,17 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         if (!(obj instanceof CaperucitaAgentState))
             return false;
 
-        int[][] worldObj = ((CaperucitaAgentState) obj).getWorld();
+//        int[][] worldObj = ((CaperucitaAgentState) obj).getWorld();
         int[] positionObj = ((CaperucitaAgentState) obj).getPosition();
 
+        /*
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 14; col++) {
                 if (bosque[row][col] != worldObj[row][col]) {
                     return false;
                 }
             }
-        }
+        }*/
 
         if (posicionActual[0] != positionObj[0] || posicionActual[1] != positionObj[1]) {
             return false;
@@ -256,20 +284,18 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 	}
     
     public int moverArriba(int fila, int columna){
-        int f=fila,aux;
+        int f=fila;
            do{
                f=f-1;
-               aux=bosque[f][columna];
            }while (bosque[f][columna]!=1);
            
            return f+1;
        };
        
     public int moverIzquierda(int fila, int columna){
-    	int c=columna,aux;
+    	int c=columna;
     	do{
     		c=c-1;
-            aux=bosque[fila][c];
     	}while (bosque[fila][c]!=1);
     	        
     	return c+1;
@@ -295,7 +321,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 	public boolean hayLoboArriba(int fila, int columna) {
 		int f = moverArriba(fila,columna);
 		
-		if(posicionLobo!=null) {
+		if(posicionLobo[0]!=0&&posicionLobo[1]!=0) {
 			if(posicionLobo[1]==columna) {
 			      for(int i=0; i<fila-f;i++){
 			            if(posicionLobo[0]==(fila-i)) return true;
@@ -406,6 +432,17 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 	public boolean tieneVidas() {
 		if(vidas>0) return true;
 		else return false;
+	}
+
+	public boolean recorriCasillero(int row, int col) {
+		
+		for(int[] c:this.casillerosRecorridos) if(c[0]==row&&c[1]==col) return true;
+		
+		return false;
+	}
+
+	public void agregarCasilleroRecorrido(int row, int col) {
+		this.casillerosRecorridos.add(new int[]{row,col});
 	}	
 }
 

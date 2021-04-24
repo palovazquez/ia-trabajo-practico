@@ -29,7 +29,7 @@ public class irDerechaJuntarDulce extends SearchAction {
          * en la posición inmediata de derecha no se encuentre un árbol
          * cuando haya dulces en el camino, si no hay dulces debería sólo irDerecha*/
         if (!caperucitaState.hayLoboDerecha(row,col) && caperucitaState.getBosque()[row][col+1]!=1
-        		&& listaDulces.size()>0) {
+        		&& listaDulces.size()>0&&!caperucitaState.recorriCasillero(row,nextCol)) {
         	
         	caperucitaState.setColumnPosition(nextCol);
         	
@@ -38,10 +38,11 @@ public class irDerechaJuntarDulce extends SearchAction {
         	
         	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
         	caperucitaState.setBosque(bosque);
-        	
+        	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+	
         	//Borramos la posción del lobo que se obtuvo en la percepción
-        	caperucitaState.setPosicionLobo(null);
-        	
+        	caperucitaState.setPosicionLobo(new int[2]);
+   	
         	return caperucitaState;
         }
         
@@ -64,24 +65,20 @@ public class irDerechaJuntarDulce extends SearchAction {
          
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
         int [][] bosque = environmentState.getBosque();
-      
-        if (listaDulces.size()>0) {
-        	
-        	//caperucitaState.setRowPosition(row);
-            environmentState.setAgentPosition(new int[] {row, nextCol});
-            
-          //seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia derecha que ahora esos casilleros están vacios (=O))
-        	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
-        	environmentState.setBosque(bosque);
-            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 
-        	//caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
-        	//caperucitaState.setBosque(bosque);
-        	
-        	
-        	return environmentState;
-        }
-          
+            
+        //seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia derecha que ahora esos casilleros están vacios (=O))
+        for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
+        environmentState.setBosque(bosque);
+        environmentState.setAgentPosition(new int[] {row, nextCol});
+        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
+
+        caperucitaState.setColumnPosition(nextCol);
+        caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        caperucitaState.setBosque(bosque);
+    	caperucitaState.setPosicionLobo(new int[2]);
+    	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+
         return environmentState;
     }
 

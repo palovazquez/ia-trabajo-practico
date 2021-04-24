@@ -31,10 +31,11 @@ public class irAbajo extends SearchAction {
 	         * cuando no haya duslces en el camino, si hay dulces debería irAbajoYJuyntqarDulces*/
 	        /*!!!!!!! Ver el == 0 en irArriba*/
 	        if (!caperucitaState.hayLoboAbajo(row,col) && caperucitaState.getBosque()[row+1][col]!=1
-	        		&& listaDulces.size()==0) {
+	        		&& listaDulces.size()==0&&!caperucitaState.recorriCasillero(nextRow,col)) {
 	        	caperucitaState.setRowPosition(caperucitaState.moverAbajo(row,col));
-	        	caperucitaState.setPosicionLobo(null);
-	        	
+	        	caperucitaState.setPosicionLobo(new int[2]);
+	        	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+	        	   	
 	        	return caperucitaState;
 	        }
 	        
@@ -55,21 +56,14 @@ public class irAbajo extends SearchAction {
 	        int col = environmentState.getAgentPosition()[1];
 	        
 	        int nextRow = caperucitaState.moverAbajo(row,col);
-	        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
-	        /* Caperucita sólo puede ir abajo cuando se cumplan las condiciones:
-	         * el lobo no esté abajo 
-	         * en la posición inmediata de abajo no se encuentre un árbol
-	         * cuando no haya duslces en el camino, si hay dulces debería irAbajoYJuyntqarDulces*/
+
+	        caperucitaState.setRowPosition(nextRow);
+        	caperucitaState.setPosicionLobo(new int[2]);
+        	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+
+	        environmentState.setAgentPosition(new int[] {nextRow, col});
+	        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 	        
-	        if (!caperucitaState.hayLoboAbajo(row,col) && caperucitaState.getBosque()[row+1][col]!=1
-	        		&& listaDulces.size()==0) {
-	        	
-	        	/*Consultar siguiente linea, ¿no debería modificar sólo el agente en la línea 69?*/
-	            //caperucitaState.setRowPosition(row);
-	            environmentState.setAgentPosition(new int[] {nextRow, col});
-	            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
-	        }
-	  
 	        return environmentState;
 	    }
 

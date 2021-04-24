@@ -145,50 +145,48 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
         this.vidas = agentEnergy;
     }
     
-    public boolean getLoboArriba(int row, int col) {
+    public int[] getLoboArriba(int row, int col) {
     	
     	int row2= moverArriba(row,col);
-
-    	if(col==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=row2&&this.getLoboPosition()[0]<=row)) return true;
-    	else return false;
+    	
+    	if(col==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=row2&&this.getLoboPosition()[0]<=row)) return this.getLoboPosition();
+    	else return null;
     }
 
-    public boolean getLoboIzquierda(int row, int col) {
+    public int[]  getLoboIzquierda(int row, int col) {
     	int col2= moverIzquierda(row,col);
 
-    	if(row==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=col2&&this.getLoboPosition()[0]<=col)) return true;
-    	else return false;
+    	if(row==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=col2&&this.getLoboPosition()[0]<=col)) return this.getLoboPosition();
+    	else return null;
     }
 
-    public boolean getLoboDerecha(int row, int col) {
+    public int[]  getLoboDerecha(int row, int col) {
     	int col2= moverAbajo(row,col);
 
-    	if(row==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=col&&this.getLoboPosition()[0]<=col2)) return true;
-    	else return false;
+    	if(row==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=col&&this.getLoboPosition()[0]<=col2)) return this.getLoboPosition();
+    	else return null;
     }
 
-    public boolean getLoboAbajo(int row, int col) {
+    public int[]  getLoboAbajo(int row, int col) {
     	int row2= moverArriba(row,col);
 
-    	if(col==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=row&&this.getLoboPosition()[0]<=row2)) return true;
-    	else return false;
+    	if(col==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=row&&this.getLoboPosition()[0]<=row2)) return this.getLoboPosition();
+    	else return null;
      }
     
     public int moverArriba(int fila, int columna){
-        int f=fila,aux;
+        int f=fila;
            do{
                f=f-1;
-               aux=bosque[f][columna];
            }while (bosque[f][columna]!=1);
            
            return f+1;
        };
        
    public int moverIzquierda(int fila, int columna){
-       	int c=columna,aux;
+       	int c=columna;
        	do{
        		c=c-1;
-               aux=bosque[fila][c];
        	}while (bosque[fila][c]!=1);
        	        
        	return c+1;

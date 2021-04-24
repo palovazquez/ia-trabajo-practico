@@ -54,7 +54,7 @@ public class CaperucitaEnvironment extends Environment {
         perception.setLoboIzquierda(this.getLoboIzquierda(row, col));
         perception.setLoboDerecha(this.getLoboDerecha(row, col));
         perception.setLoboAbajo(this.getLoboAbajo(row, col));
-
+        
         // Return the perception
         return perception;
     }
@@ -82,22 +82,22 @@ public class CaperucitaEnvironment extends Environment {
 
     // The following methods are Caperucita-specific:
     
-    public boolean getLoboArriba(int row, int col) {
+    public int[] getLoboArriba(int row, int col) {
         return ((CaperucitaEnvironmentState) this.environmentState)
                 .getLoboArriba(row, col);
     }
 
-    public boolean getLoboIzquierda(int row, int col) {
+    public int[] getLoboIzquierda(int row, int col) {
         return ((CaperucitaEnvironmentState) this.environmentState)
                 .getLoboIzquierda(row, col);
     }
 
-    public boolean getLoboDerecha(int row, int col) {
+    public int[] getLoboDerecha(int row, int col) {
         return ((CaperucitaEnvironmentState) this.environmentState)
                 .getLoboDerecha(row, col);
     }
 
-    public boolean getLoboAbajo(int row, int col) {
+    public int[] getLoboAbajo(int row, int col) {
         return ((CaperucitaEnvironmentState) this.environmentState)
                 .getLoboAbajo(row, col);
     }

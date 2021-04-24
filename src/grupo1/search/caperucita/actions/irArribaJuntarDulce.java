@@ -43,7 +43,7 @@ public class irArribaJuntarDulce extends SearchAction {
      
         /* The agent can only go up when the cell is not empty */
         if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]!=1
-        		&& listaDulces.size()>0) {
+        		&& listaDulces.size()>0&&!caperucitaState.recorriCasillero(nextRow,col)) {
         	
         	caperucitaState.setRowPosition(nextRow);
         	
@@ -51,7 +51,9 @@ public class irArribaJuntarDulce extends SearchAction {
         	
         	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
         	caperucitaState.setBosque(bosque);
-        	
+        	caperucitaState.setPosicionLobo(new int[2]);
+        	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+                 	
         	return caperucitaState;
         }
         
@@ -70,27 +72,24 @@ public class irArribaJuntarDulce extends SearchAction {
 
         int row = environmentState.getAgentPosition()[0];
         int col = environmentState.getAgentPosition()[1];
-        //¿Está bien row o es nextRow en la próximaLinea?
+
         int nextRow = caperucitaState.moverArriba(row,col);
          
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
         int [][] bosque = environmentState.getBosque();
       
-        if (listaDulces.size()>0) {
         	
-        	//caperucitaState.setRowPosition(row);
-            environmentState.setAgentPosition(new int[] {nextRow, col});
-        	
-        	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
-        	environmentState.setBosque(bosque);
-            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
+        for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
+        environmentState.setBosque(bosque);
+        environmentState.setAgentPosition(new int[] {nextRow, col});
+        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 
-        	//caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
-        	//caperucitaState.setBosque(bosque);
-        	
-        	return environmentState;
-        }
-          
+        caperucitaState.setRowPosition(nextRow);
+        caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        caperucitaState.setBosque(bosque);
+    	caperucitaState.setPosicionLobo(new int[2]);
+    	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+        
         return environmentState;
     }
 

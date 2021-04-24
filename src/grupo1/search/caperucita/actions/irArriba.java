@@ -18,14 +18,15 @@ public class irArriba extends SearchAction {
         int col = caperucitaState.getColumnPosition();
         int nextRow = caperucitaState.moverArriba(row,col);
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(nextRow,col);
-        
+        boolean recorri=caperucitaState.recorriCasillero(nextRow,col);
         /* The agent can only go up when the cell is not empty */
         if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]!=CaperucitaPerception.ARBOL
-        		&& listaDulces.size()==0) {
+        		&& listaDulces.size()==0&&!recorri) {
         	
         	caperucitaState.setRowPosition(caperucitaState.moverArriba(row,col));
-        	caperucitaState.setPosicionLobo(null);
-        	
+        	caperucitaState.setPosicionLobo(new int[2]);
+        	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+            	
         	return caperucitaState;
         }
         
@@ -42,18 +43,13 @@ public class irArriba extends SearchAction {
         int col = environmentState.getAgentPosition()[1];
         
         int nextRow = caperucitaState.moverArriba(row, col);
-        /*ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
-        
-        if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]==0
-        		&& listaDulces.size()==0) {
-        /*	
-        caperucitaState.setRowPosition(row);*/
 
         caperucitaState.setRowPosition(nextRow);
         environmentState.setAgentPosition(new int[] {nextRow, col});
         environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
-        //}*/
-  
+    	caperucitaState.setPosicionLobo(new int[2]);
+    	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+        
         return environmentState;
     }
 

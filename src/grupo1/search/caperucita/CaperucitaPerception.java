@@ -28,11 +28,10 @@ public class CaperucitaPerception extends Perception {
     public static int DULCE = 2;
     public static int CAMPOFLORES = 3;
 
-    private boolean loboIzquierda;
-    private boolean loboArriba;
-    private boolean loboDerecha;
-    private boolean loboAbajo;
-    private int[] posicionLobo;
+    private int[]  loboIzquierda;
+    private int[]  loboArriba;
+    private int[]  loboDerecha;
+    private int[]  loboAbajo;
     private int vidas;
 
     public CaperucitaPerception() {
@@ -61,50 +60,42 @@ public class CaperucitaPerception extends Perception {
         this.setLoboDerecha(caperucitaEnvironment.getLoboDerecha(row, col));
         this.setLoboAbajo(caperucitaEnvironment.getLoboAbajo(row, col));
         
-        if(loboArriba||loboAbajo||loboIzquierda||loboDerecha) this.setPosicionLobo(caperucitaEnvironment.getLoboPosicion());
-        else this.setPosicionLobo(null);
+   //     if(loboArriba||loboAbajo||loboIzquierda||loboDerecha) this.setPosicionLobo(caperucitaEnvironment.getLoboPosicion());
+   //     else this.setPosicionLobo(null);
     }
 
     // The following methods are Pacman-specific:
 
     
-    public boolean isLoboIzquierda() {
+    public int[]  isLoboIzquierda() {
 		return loboIzquierda;
 	}
 
-	public int[] getPosicionLobo() {
-		return posicionLobo;
-	}
-
-	public void setPosicionLobo(int[] posicionLobo) {
-		this.posicionLobo = posicionLobo;
-	}
-
-	public void setLoboIzquierda(boolean loboIzquierda) {
+	public void setLoboIzquierda(int[]  loboIzquierda) {
 		this.loboIzquierda = loboIzquierda;
 	}
 
-	public boolean isLoboArriba() {
+	public int[]  isLoboArriba() {
 		return loboArriba;
 	}
 
-	public void setLoboArriba(boolean loboArriba) {
+	public void setLoboArriba(int[]  loboArriba) {
 		this.loboArriba = loboArriba;
 	}
 	
-	public boolean isLoboDerecha() {
+	public int[]  isLoboDerecha() {
 		return loboDerecha;
 	}
 
-	public void setLoboDerecha(boolean loboDerecha) {
+	public void setLoboDerecha(int[]  loboDerecha) {
 		this.loboDerecha = loboDerecha;
 	}
 
-	public boolean isLoboAbajo() {
+	public int[]  isLoboAbajo() {
 		return loboAbajo;
 	}
 
-	public void setLoboAbajo(boolean loboAbajo) {
+	public void setLoboAbajo(int[]  loboAbajo) {
 		this.loboAbajo = loboAbajo;
 	}
 
@@ -120,15 +111,16 @@ public class CaperucitaPerception extends Perception {
     public String toString() {
         StringBuffer str = new StringBuffer();
 
-        str.append("Energy: " + this.vidas);
+        str.append("Vidas: " + this.vidas);
         str.append("; ");
-        str.append("Left Sensor: " + this.loboIzquierda);
+        
+        str.append("Sensor Izquierda: [" + this.loboIzquierda + ","+this.loboIzquierda+ "]");
         str.append("; ");
-        str.append("Up Sensor: " + this.loboArriba);
+        str.append("Sensor Arriba: [" + this.loboArriba + ","+this.loboArriba + "]");
         str.append("; ");
-        str.append("Right Sensor: " + this.loboDerecha);
+        str.append("Sensor Derecha: [" + this.loboDerecha + ","+this.loboDerecha + "]");
         str.append("; ");
-        str.append("Down Sensor: " + this.loboAbajo);
+        str.append("Sensor Abajo: " + this.loboAbajo + ","+this.loboAbajo + "]");
 
         return str.toString();
     }

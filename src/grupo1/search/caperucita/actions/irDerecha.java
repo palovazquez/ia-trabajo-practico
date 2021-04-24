@@ -31,10 +31,11 @@ public class irDerecha extends SearchAction {
 	         * cuando no haya duslces en el camino, si hay dulces debería irDerechaYJuyntqarDulces*/
 	        /*!!!!!!! Ver el == 0 en irArriba*/
 	        if (!caperucitaState.hayLoboDerecha(row,col) && caperucitaState.getBosque()[row][col+1]!=1
-	        		&& listaDulces.size()==0) {
+	        		&& listaDulces.size()==0&&!caperucitaState.recorriCasillero(row,nextCol)) {
 	        	caperucitaState.setColumnPosition(caperucitaState.moverDerecha(row,col));
-	        	caperucitaState.setPosicionLobo(null);
-	        	
+	        	caperucitaState.setPosicionLobo(new int[2]);
+	        	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+
 	        	return caperucitaState;
 	        }
 	        
@@ -55,21 +56,13 @@ public class irDerecha extends SearchAction {
 	        int col = environmentState.getAgentPosition()[1];
 	        
 	        int nextCol = caperucitaState.moverDerecha(row,col);
-	        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
-	        /* Caperucita sólo puede ir derecha cuando se cumplan las condiciones:
-	         * el lobo no esté derecha 
-	         * en la posición inmediata de derecha no se encuentre un árbol
-	         * cuando no haya duslces en el camino, si hay dulces debería irDerechaYJuyntqarDulces*/
-	        
-	        if (!caperucitaState.hayLoboDerecha(row,col) && caperucitaState.getBosque()[row][col+1]!=1
-	        		&& listaDulces.size()==0) {
-	        	
-	        	/*Consultar siguiente linea, ¿no debería modificar sólo el agente en la línea 69?*/
-	            //caperucitaState.setColumnPosition(nextCol);
-	            environmentState.setAgentPosition(new int[] {row, nextCol});
-	            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
-	        }
-	  
+   	        	
+	        caperucitaState.setColumnPosition(nextCol);
+	        environmentState.setAgentPosition(new int[] {row, nextCol});
+	        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
+        	caperucitaState.setPosicionLobo(new int[2]);
+        	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+
 	        return environmentState;
 	    }
 

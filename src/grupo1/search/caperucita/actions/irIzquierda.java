@@ -23,7 +23,8 @@ public class irIzquierda extends SearchAction {
 	        int col = caperucitaState.getColumnPosition();
 	        int nextCol = caperucitaState.moverIzquierda(row,col);
 	        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,nextCol);
-	        
+	        boolean recorri=caperucitaState.recorriCasillero(row,nextCol);
+    
 	        /* The agent can only go down when the cell is not empty */
 	        /* Caperucita sólo puede ir izquierda cuando se cumplan las condiciones:
 	         * el lobo no esté izquierda 
@@ -31,10 +32,11 @@ public class irIzquierda extends SearchAction {
 	         * cuando no haya duslces en el camino, si hay dulces debería irIzquierdaYJuyntqarDulces*/
 	        /*!!!!!!! Ver el == 0 en irArriba*/
 	        if (!caperucitaState.hayLoboIzquierda(row,col) && caperucitaState.getBosque()[row][col-1]!=1
-	        		&& listaDulces.size()==0) {
+	        		&& listaDulces.size()==0&&!recorri) {
 	        	caperucitaState.setColumnPosition(caperucitaState.moverIzquierda(row,col));
-	        	caperucitaState.setPosicionLobo(null);
-	        	
+	        	caperucitaState.setPosicionLobo(new int[2]);
+	        	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+    	
 	        	return caperucitaState;
 	        }
 	        
@@ -55,21 +57,12 @@ public class irIzquierda extends SearchAction {
 	        int col = environmentState.getAgentPosition()[1];
 	        
 	        int nextCol= caperucitaState.moverIzquierda(row,col);
-	        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
-	        /* Caperucita sólo puede ir izquierda cuando se cumplan las condiciones:
-	         * el lobo no esté izquierda 
-	         * en la posición inmediata de izquierda no se encuentre un árbol
-	         * cuando no haya duslces en el camino, si hay dulces debería irIzquierdaYJuyntqarDulces*/
-	        
-	        if (!caperucitaState.hayLoboIzquierda(row,col) && caperucitaState.getBosque()[row][col-1]!=1
-	        		&& listaDulces.size()==0) {
-	        	
-	        	/*Consultar siguiente linea, ¿no debería modificar sólo el agente en la línea 69?*/
-	            //caperucitaState.setColumnPosition(col);
-	            environmentState.setAgentPosition(new int[] {row, nextCol});
-	            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
-	        }
-	  
+	        caperucitaState.setColumnPosition(col);
+	        environmentState.setAgentPosition(new int[] {row, nextCol});
+	        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
+        	caperucitaState.setPosicionLobo(new int[2]);
+        	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+  
 	        return environmentState;
 	    }
 

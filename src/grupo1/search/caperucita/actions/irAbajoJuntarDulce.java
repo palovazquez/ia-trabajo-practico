@@ -29,9 +29,10 @@ public class irAbajoJuntarDulce extends SearchAction {
          * en la posición inmediata de abajo no se encuentre un árbol
          * cuando haya dulces en el camino, si no hay dulces debería sólo irAbajo*/
         if (!caperucitaState.hayLoboAbajo(row,col) && caperucitaState.getBosque()[row+1][col]!=1
-        		&& listaDulces.size()>0) {
+        		&& listaDulces.size()>0&&!caperucitaState.recorriCasillero(nextRow,col)) {
         	
         	caperucitaState.setRowPosition(nextRow);
+        	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
         	
         	//seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia abajo que ahora esos casilleros están vacios (=O))
         	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
@@ -40,7 +41,7 @@ public class irAbajoJuntarDulce extends SearchAction {
         	caperucitaState.setBosque(bosque);
         	
         	//Borramos la posción del lobo que se obtuvo en la percepción
-        	caperucitaState.setPosicionLobo(null);
+        	caperucitaState.setPosicionLobo(new int[2]);
         	
         	return caperucitaState;
         }
@@ -64,24 +65,20 @@ public class irAbajoJuntarDulce extends SearchAction {
          
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
         int [][] bosque = environmentState.getBosque();
-      
-        if (listaDulces.size()>0) {
         	
-        	caperucitaState.setRowPosition(row);
-            environmentState.setAgentPosition(new int[] {nextRow, col});
             
-          //seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia abajo que ahora esos casilleros están vacios (=O))
-        	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
-        	environmentState.setBosque(bosque);
-            environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
+        //seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia abajo que ahora esos casilleros están vacios (=O))
+        for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
+        environmentState.setBosque(bosque);
+        environmentState.setAgentPosition(new int[] {nextRow, col});
+        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 
-        	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
-        	caperucitaState.setBosque(bosque);
-        	
-        	
-        	return environmentState;
-        }
-          
+        caperucitaState.setRowPosition(nextRow);
+        caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        caperucitaState.setBosque(bosque);
+    	caperucitaState.setPosicionLobo(new int[2]);
+    	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+
         return environmentState;
     }
 
