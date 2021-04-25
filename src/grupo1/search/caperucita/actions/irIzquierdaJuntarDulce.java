@@ -74,6 +74,7 @@ public class irIzquierdaJuntarDulce extends SearchAction {
         caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
         caperucitaState.setBosque(bosque);
     	caperucitaState.setPosicionLobo(new int[2]);
+    	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
 
         return environmentState;
     }

@@ -33,6 +33,7 @@ public class irIzquierda extends SearchAction {
 	        /*!!!!!!! Ver el == 0 en irArriba*/
 	        if (!caperucitaState.hayLoboIzquierda(row,col) && caperucitaState.getBosque()[row][col-1]!=1
 	        		&& listaDulces.size()==0&&!recorri) {
+	        	
 	        	caperucitaState.setColumnPosition(caperucitaState.moverIzquierda(row,col));
 	        	caperucitaState.setPosicionLobo(new int[2]);
 	        	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
@@ -57,12 +58,14 @@ public class irIzquierda extends SearchAction {
 	        int col = environmentState.getAgentPosition()[1];
 	        
 	        int nextCol= caperucitaState.moverIzquierda(row,col);
+	        
 	        caperucitaState.setColumnPosition(col);
-	        environmentState.setAgentPosition(new int[] {row, nextCol});
-	        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
         	caperucitaState.setPosicionLobo(new int[2]);
         	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
   
+        	environmentState.setAgentPosition(new int[] {row, nextCol});
+	        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
+
 	        return environmentState;
 	    }
 

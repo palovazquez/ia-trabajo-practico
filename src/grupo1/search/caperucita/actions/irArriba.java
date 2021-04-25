@@ -25,7 +25,7 @@ public class irArriba extends SearchAction {
         	
         	caperucitaState.setRowPosition(caperucitaState.moverArriba(row,col));
         	caperucitaState.setPosicionLobo(new int[2]);
-        	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+        	//caperucitaState.agregarCasilleroRecorrido(nextRow,col);
             	
         	return caperucitaState;
         }
@@ -43,13 +43,14 @@ public class irArriba extends SearchAction {
         int col = environmentState.getAgentPosition()[1];
         
         int nextRow = caperucitaState.moverArriba(row, col);
-
-        caperucitaState.setRowPosition(nextRow);
+   
+        caperucitaState.setPosicionLobo(new int[2]);
+    	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+    	caperucitaState.setRowPosition(nextRow);
+        
         environmentState.setAgentPosition(new int[] {nextRow, col});
         environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
-    	caperucitaState.setPosicionLobo(new int[2]);
-    	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
-        
+	
         return environmentState;
     }
 

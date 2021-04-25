@@ -32,9 +32,10 @@ public class irAbajo extends SearchAction {
 	        /*!!!!!!! Ver el == 0 en irArriba*/
 	        if (!caperucitaState.hayLoboAbajo(row,col) && caperucitaState.getBosque()[row+1][col]!=1
 	        		&& listaDulces.size()==0&&!caperucitaState.recorriCasillero(nextRow,col)) {
+	        	
 	        	caperucitaState.setRowPosition(caperucitaState.moverAbajo(row,col));
 	        	caperucitaState.setPosicionLobo(new int[2]);
-	        	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+	        	//caperucitaState.agregarCasilleroRecorrido(nextRow,col);
 	        	   	
 	        	return caperucitaState;
 	        }

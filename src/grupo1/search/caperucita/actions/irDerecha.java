@@ -58,10 +58,11 @@ public class irDerecha extends SearchAction {
 	        int nextCol = caperucitaState.moverDerecha(row,col);
    	        	
 	        caperucitaState.setColumnPosition(nextCol);
-	        environmentState.setAgentPosition(new int[] {row, nextCol});
-	        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
         	caperucitaState.setPosicionLobo(new int[2]);
         	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+
+        	environmentState.setAgentPosition(new int[] {row, nextCol});
+	        environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 
 	        return environmentState;
 	    }

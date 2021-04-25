@@ -83,6 +83,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         CaperucitaAgentState newState = new CaperucitaAgentState(newWorld,
                 newPosition[0], newPosition[1],this.cantidadDulces, this.vidas);
         newState.setPosicionLobo(posicionLobo);
+        //newState.agregarCasilleroRecorrido(newPosition[0],newPosition[1]);
         
         return newState;
     }
@@ -127,8 +128,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         this.setCantidadDulces(0);
         this.setVidas(escenario.getVidas());
         this.setPosicionLobo(new int[2]);
-        
-        this.casillerosRecorridos.add(posicionActual);
+        this.agregarCasilleroRecorrido(5, 11);;
         
     }
     
