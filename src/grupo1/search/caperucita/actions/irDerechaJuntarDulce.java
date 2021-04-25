@@ -63,7 +63,7 @@ public class irDerechaJuntarDulce extends SearchAction {
         int col = environmentState.getAgentPosition()[1];
         int nextCol = caperucitaState.moverDerecha(row,col);
          
-        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
+        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,nextCol);
         int [][] bosque = environmentState.getBosque();
 
             

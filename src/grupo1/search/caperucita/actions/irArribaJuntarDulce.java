@@ -75,7 +75,7 @@ public class irArribaJuntarDulce extends SearchAction {
 
         int nextRow = caperucitaState.moverArriba(row,col);
          
-        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(row,col);
+        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(nextRow,col);
         int [][] bosque = environmentState.getBosque();
       
         	

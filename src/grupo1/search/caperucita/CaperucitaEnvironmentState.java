@@ -75,6 +75,8 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
     		return lobo;
     	}else return nuevaPosicionLobo();
     	
+    	
+    	//return new int[] {2,5};
     }
 
     /**
@@ -156,19 +158,19 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
     public int[]  getLoboIzquierda(int row, int col) {
     	int col2= moverIzquierda(row,col);
 
-    	if(row==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=col2&&this.getLoboPosition()[0]<=col)) return this.getLoboPosition();
+    	if(row==this.getLoboPosition()[0]&&(this.getLoboPosition()[1]>=col2&&this.getLoboPosition()[1]<=col)) return this.getLoboPosition();
     	else return null;
     }
 
     public int[]  getLoboDerecha(int row, int col) {
-    	int col2= moverAbajo(row,col);
+    	int col2= moverDerecha(row,col);
 
-    	if(row==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=col&&this.getLoboPosition()[0]<=col2)) return this.getLoboPosition();
+    	if(row==this.getLoboPosition()[0]&&(this.getLoboPosition()[1]>=col&&this.getLoboPosition()[1]<=col2)) return this.getLoboPosition();
     	else return null;
     }
 
     public int[]  getLoboAbajo(int row, int col) {
-    	int row2= moverArriba(row,col);
+    	int row2= moverAbajo(row,col);
 
     	if(col==this.getLoboPosition()[1]&&(this.getLoboPosition()[0]>=row&&this.getLoboPosition()[0]<=row2)) return this.getLoboPosition();
     	else return null;

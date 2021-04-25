@@ -114,14 +114,20 @@ public class CaperucitaPerception extends Perception {
         str.append("Vidas: " + this.vidas);
         str.append("; ");
         
-        str.append("Sensor Izquierda: [" + this.loboIzquierda + ","+this.loboIzquierda+ "]");
+        
+        if(this.loboArriba!=null) str.append("Sensor Arriba: [" + this.loboArriba[0] + ","+this.loboArriba[1] + "]");
+        else str.append("Sensor Arriba: - ");
         str.append("; ");
-        str.append("Sensor Arriba: [" + this.loboArriba + ","+this.loboArriba + "]");
+        if(this.loboDerecha!=null) str.append("Sensor Derecha: [" + this.loboDerecha[0] + ","+this.loboDerecha[1] + "]");
+        else str.append("Sensor Derecha: - ");
         str.append("; ");
-        str.append("Sensor Derecha: [" + this.loboDerecha + ","+this.loboDerecha + "]");
+        if(this.loboAbajo!=null) str.append("Sensor Abajo: " + this.loboAbajo[0] + ","+this.loboAbajo[1] + "]");
+        else str.append("Sensor Abajo: - ");
         str.append("; ");
-        str.append("Sensor Abajo: " + this.loboAbajo + ","+this.loboAbajo + "]");
-
+        if(this.loboIzquierda!=null) str.append("Sensor Izquierda: [" + this.loboIzquierda[0] + ","+this.loboIzquierda[1] + "]");
+        else str.append("Sensor Izquierda: - ");
+        str.append("; ");
+        
         return str.toString();
     }
 
