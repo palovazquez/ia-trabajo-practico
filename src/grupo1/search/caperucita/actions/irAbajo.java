@@ -23,7 +23,7 @@ public class irAbajo extends SearchAction {
 	        int col = caperucitaState.getColumnPosition();
 	        int nextRow = caperucitaState.moverAbajo(row,col);
 	        ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(nextRow,col);
-	        
+	        boolean recorri = caperucitaState.recorriCasillero(nextRow,col);
 	        /* The agent can only go down when the cell is not empty */
 	        /* Caperucita sólo puede ir abajo cuando se cumplan las condiciones:
 	         * el lobo no esté abajo 
@@ -31,7 +31,7 @@ public class irAbajo extends SearchAction {
 	         * cuando no haya duslces en el camino, si hay dulces debería irAbajoYJuyntqarDulces*/
 	        /*!!!!!!! Ver el == 0 en irArriba*/
 	        if (!caperucitaState.hayLoboAbajo(row,col) && caperucitaState.getBosque()[row+1][col]!=1
-	        		&& listaDulces.size()==0&&!caperucitaState.recorriCasillero(nextRow,col)) {
+	        		&& listaDulces.size()==0&&!recorri) {
 	        	
 	        	caperucitaState.setRowPosition(caperucitaState.moverAbajo(row,col));
 	        	caperucitaState.setPosicionLobo(new int[2]);

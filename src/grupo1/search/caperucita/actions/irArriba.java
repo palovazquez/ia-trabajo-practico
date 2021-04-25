@@ -47,7 +47,13 @@ public class irArriba extends SearchAction {
         caperucitaState.setPosicionLobo(new int[2]);
     	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
     	caperucitaState.setRowPosition(nextRow);
-        
+    	
+    	System.out.print("ES----- \n");
+    	for(int[] c :caperucitaState.getCasillerosRecorridos()) {
+    		System.out.print(c[0]+" "+c[1] +" - ");
+    	}
+    	System.out.print("\n");
+
         environmentState.setAgentPosition(new int[] {nextRow, col});
         environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 	

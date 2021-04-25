@@ -38,12 +38,12 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     
     private Escenario escenario;
 
-    public CaperucitaAgentState(int[][] b, int row, int col,int d, int v) {
+    public CaperucitaAgentState(int[][] b, int row, int col,int d, int v, ArrayList<int[]> cr) {
         bosque = b;
         posicionActual = new int[] {row, col};
         posicionInicial = new int[2];
         posicionLobo = new int[2];
-        casillerosRecorridos = new ArrayList<>();
+        casillerosRecorridos = cr;
         posicionInicial[0] = row;
         posicionInicial[1] = col;
         cantidadDulces = d;
@@ -80,10 +80,15 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         newPosition[0] = posicionActual[0];
         newPosition[1] = posicionActual[1];
 
+    	System.out.print("CLONE ----- \n");
+    	for(int[] c :casillerosRecorridos) {
+    		System.out.print(c[0]+" "+c[1]+" - ");
+    	}
+    	System.out.print("\n");
+
         CaperucitaAgentState newState = new CaperucitaAgentState(newWorld,
-                newPosition[0], newPosition[1],this.cantidadDulces, this.vidas);
+                newPosition[0], newPosition[1],this.cantidadDulces, this.vidas,this.casillerosRecorridos);
         newState.setPosicionLobo(posicionLobo);
-        //newState.agregarCasilleroRecorrido(newPosition[0],newPosition[1]);
         
         return newState;
     }
