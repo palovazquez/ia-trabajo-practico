@@ -79,13 +79,13 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         int[] newPosition = new int[2];
         newPosition[0] = posicionActual[0];
         newPosition[1] = posicionActual[1];
-
+/*
     	System.out.print("CLONE ----- \n");
     	for(int[] c :casillerosRecorridos) {
     		System.out.print(c[0]+" "+c[1]+" - ");
     	}
     	System.out.print("\n");
-
+*/
         CaperucitaAgentState newState = new CaperucitaAgentState(newWorld,
                 newPosition[0], newPosition[1],this.cantidadDulces, this.vidas,this.casillerosRecorridos);
         newState.setPosicionLobo(posicionLobo);
@@ -448,6 +448,27 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 
 	public void agregarCasilleroRecorrido(int row, int col) {
 		this.casillerosRecorridos.add(new int[]{row,col});
-	}	
+	}
+
+	public double getDistancia() {
+    	int[] celdaCampoFlores = this.posCampoFlores();
+    	double distancia = Math.sqrt(Math.pow(celdaCampoFlores[0]-posicionActual[0],2)+Math.pow(celdaCampoFlores[1]-posicionActual[1],2)); 
+        return distancia; 	
+    }
+	
+	public int[] posCampoFlores() {
+    	int[] celdaCampoFlores = new int[2];
+    	 for (int row = 0; row < 9; row++) {
+    		 for (int col = 0; col < 14; col++) {
+    			 if (bosque[row][col] == 3){
+    				 celdaCampoFlores[0] = row;
+    				 celdaCampoFlores[1] = col;
+    				 return celdaCampoFlores;
+    			 }
+             }
+    	 }
+    	 return celdaCampoFlores;
+    }
+    	
 }
 

@@ -34,7 +34,7 @@ public class irDerecha extends SearchAction {
 	        		&& listaDulces.size()==0&&!caperucitaState.recorriCasillero(row,nextCol)) {
 	        	caperucitaState.setColumnPosition(caperucitaState.moverDerecha(row,col));
 	        	caperucitaState.setPosicionLobo(new int[2]);
-	        	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+	        	//caperucitaState.agregarCasilleroRecorrido(row,nextCol);
 
 	        	return caperucitaState;
 	        }

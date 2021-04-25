@@ -31,7 +31,9 @@ public class CostFunction implements IStepCostFunction {
      */
     @Override
     public double calculateCost(NTree node) {
-    	return 0.0;
+//    	return 0.0;
         //return ((CaperucitaAgentState) node.getAgentState()).getVisitedCellsCount();
+    	
+    	return ((CaperucitaAgentState) node.getAgentState()).getDistancia();
     }
 }

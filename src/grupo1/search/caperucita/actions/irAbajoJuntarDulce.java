@@ -32,7 +32,7 @@ public class irAbajoJuntarDulce extends SearchAction {
         		&& listaDulces.size()>0&&!caperucitaState.recorriCasillero(nextRow,col)) {
         	
         	caperucitaState.setRowPosition(nextRow);
-        	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+        	//caperucitaState.agregarCasilleroRecorrido(nextRow,col);
         	
         	//seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia abajo que ahora esos casilleros están vacios (=O))
         	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;

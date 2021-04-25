@@ -38,7 +38,7 @@ public class irDerechaJuntarDulce extends SearchAction {
         	
         	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
         	caperucitaState.setBosque(bosque);
-        	caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+        	//caperucitaState.agregarCasilleroRecorrido(row,nextCol);
 	
         	//Borramos la posción del lobo que se obtuvo en la percepción
         	caperucitaState.setPosicionLobo(new int[2]);
