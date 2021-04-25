@@ -72,8 +72,8 @@ public class CaperucitaAgent extends SearchBasedAgent {
     public Action selectAction() {
 
         // Create the search strategy
-        DepthFirstSearch strategy = new DepthFirstSearch();
-
+        //DepthFirstSearch strategy = new DepthFirstSearch();
+    	//BreathFirstSearch strategy = new BreathFirstSearch();
         /**
          * Another search strategy examples:
          * 
@@ -83,15 +83,15 @@ public class CaperucitaAgent extends SearchBasedAgent {
          * Breath First Search:
          * BreathFirstSearch strategy = new BreathFirstSearch();
          * 
-         * Uniform Cost:*
-          IStepCostFunction costFunction = new CostFunction();
-          UniformCostSearch strategy = new UniformCostSearch(costFunction);
-         *
-         * A Star Search:
-         * IStepCostFunction cost = new CostFunction();
-         * IEstimatedCostFunction heuristic = new Heuristic();
-         * AStarSearch strategy = new AStarSearch(cost, heuristic);
-         * 
+         * Uniform Cost:*/
+          //IStepCostFunction costFunction = new CostFunction();
+          //UniformCostSearch strategy = new UniformCostSearch(costFunction);
+         
+         // A Star Search:
+          IStepCostFunction cost = new CostFunction();
+          IEstimatedCostFunction heuristic = new Heuristic();
+          AStarSearch strategy = new AStarSearch(cost, heuristic);
+         /* 
          * Greedy Search:
          * IEstimatedCostFunction heuristic = new Heuristic();
          * GreedySearch strategy = new GreedySearch(heuristic);

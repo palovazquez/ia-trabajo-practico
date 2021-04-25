@@ -65,14 +65,14 @@ public class Escenario {
         bosque[1][0] = CaperucitaPerception.ARBOL;
         bosque[1][1] = CaperucitaPerception.ARBOL;
         bosque[1][2] = CaperucitaPerception.ARBOL;
-        bosque[1][3] = CaperucitaPerception.DULCE;
+        bosque[1][3] = CaperucitaPerception.VACIO;
         bosque[1][4] = CaperucitaPerception.VACIO;
         bosque[1][5] = CaperucitaPerception.VACIO;
         bosque[1][6] = CaperucitaPerception.VACIO;
         bosque[1][7] = CaperucitaPerception.ARBOL;
         bosque[1][8] = CaperucitaPerception.VACIO;
         bosque[1][9] = CaperucitaPerception.VACIO;
-        bosque[1][10] = CaperucitaPerception.DULCE;
+        bosque[1][10] = CaperucitaPerception.VACIO;
         bosque[1][11] = CaperucitaPerception.ARBOL;
         bosque[1][12] = CaperucitaPerception.ARBOL;
         bosque[1][13] = CaperucitaPerception.ARBOL;
@@ -88,7 +88,7 @@ public class Escenario {
         bosque[2][8] = CaperucitaPerception.VACIO;
         bosque[2][9] = CaperucitaPerception.VACIO;
         bosque[2][10] = CaperucitaPerception.VACIO;
-        bosque[2][11] = CaperucitaPerception.VACIO;
+        bosque[2][11] = CaperucitaPerception.DULCE;
         bosque[2][12] = CaperucitaPerception.ARBOL;
         bosque[2][13] = CaperucitaPerception.ARBOL;
         
@@ -100,10 +100,10 @@ public class Escenario {
         bosque[3][5] = CaperucitaPerception.VACIO;
         bosque[3][6] = CaperucitaPerception.VACIO;
         bosque[3][7] = CaperucitaPerception.VACIO;
-        bosque[3][8] = CaperucitaPerception.DULCE;
+        bosque[3][8] = CaperucitaPerception.VACIO;
         bosque[3][9] = CaperucitaPerception.ARBOL;
         bosque[3][10] = CaperucitaPerception.VACIO;
-        bosque[3][11] = CaperucitaPerception.VACIO;
+        bosque[3][11] = CaperucitaPerception.DULCE;
         bosque[3][12] = CaperucitaPerception.ARBOL;
         bosque[3][13] = CaperucitaPerception.ARBOL;
 
@@ -118,7 +118,7 @@ public class Escenario {
         bosque[4][8] = CaperucitaPerception.ARBOL;
         bosque[4][9] = CaperucitaPerception.VACIO;
         bosque[4][10] = CaperucitaPerception.VACIO;
-        bosque[4][11] = CaperucitaPerception.VACIO;
+        bosque[4][11] = CaperucitaPerception.DULCE;
         bosque[4][12] = CaperucitaPerception.ARBOL;
         bosque[4][13] = CaperucitaPerception.ARBOL;
 

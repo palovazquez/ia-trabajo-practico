@@ -478,6 +478,10 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     	 }
     	 return celdaCampoFlores;
     }
-    	
+	
+	public int getCantidadDeDulcesNoComidos() {
+		int dulcesRestantes = 10 * (3 - cantidadDulces); 
+		return dulcesRestantes;
+	}
 }
 
