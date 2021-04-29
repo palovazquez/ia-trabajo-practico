@@ -36,6 +36,10 @@ public class irAbajo extends SearchAction {
 	        	caperucitaState.setRowPosition(caperucitaState.moverAbajo(row,col));
 	        	caperucitaState.setPosicionLobo(new int[2]);
 	        	//caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+	        	
+	        	//Calculo los casilleros recorridos
+		        int casillerosRecorridos = Math.abs(nextRow - row);
+		        caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
 	        	   	
 	        	return caperucitaState;
 	        }
@@ -57,6 +61,10 @@ public class irAbajo extends SearchAction {
 	        int col = environmentState.getAgentPosition()[1];
 	        
 	        int nextRow = caperucitaState.moverAbajo(row,col);
+	        
+	        //Calculo los casilleros recorridos
+	        int casillerosRecorridos = Math.abs(nextRow - row);
+	        caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
 
 	        caperucitaState.setRowPosition(nextRow);
         	caperucitaState.setPosicionLobo(new int[2]);

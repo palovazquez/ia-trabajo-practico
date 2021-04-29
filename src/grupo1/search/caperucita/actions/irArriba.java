@@ -17,6 +17,8 @@ public class irArriba extends SearchAction {
         int row = caperucitaState.getRowPosition();
         int col = caperucitaState.getColumnPosition();
         int nextRow = caperucitaState.moverArriba(row,col);
+        
+        
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(nextRow,col);
         boolean recorri=caperucitaState.recorriCasillero(nextRow,col);
         /* The agent can only go up when the cell is not empty */
@@ -26,6 +28,10 @@ public class irArriba extends SearchAction {
         	caperucitaState.setRowPosition(caperucitaState.moverArriba(row,col));
         	caperucitaState.setPosicionLobo(new int[2]);
         	//caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+        	
+        	//Calculo los casilleros recorridos
+        	int casillerosRecorridos = Math.abs(row - nextRow);
+        	caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
             	
         	return caperucitaState;
         }
@@ -43,6 +49,10 @@ public class irArriba extends SearchAction {
         int col = environmentState.getAgentPosition()[1];
         
         int nextRow = caperucitaState.moverArriba(row, col);
+        
+        //Calculo los casilleros recorridos
+    	int casillerosRecorridos = Math.abs(row - nextRow);
+    	caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
    
         caperucitaState.setPosicionLobo(new int[2]);
     	caperucitaState.agregarCasilleroRecorrido(nextRow,col);

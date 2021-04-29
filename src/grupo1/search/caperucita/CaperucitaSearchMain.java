@@ -40,6 +40,7 @@ public class CaperucitaSearchMain {
                 new SearchBasedAgentSimulator(caperucitaEnvironment, caperucitaAgent);
         
         simulator.start();
+      
     }
     
     public static Escenario[] obtenerEscenarios() {

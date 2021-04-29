@@ -33,8 +33,14 @@ public class irDerecha extends SearchAction {
 	        if (!caperucitaState.hayLoboDerecha(row,col) && caperucitaState.getBosque()[row][col+1]!=1
 	        		&& listaDulces.size()==0&&!caperucitaState.recorriCasillero(row,nextCol)) {
 	        	caperucitaState.setColumnPosition(caperucitaState.moverDerecha(row,col));
+	        	
+	        	//Calculo los casilleros recorridos
+	        	int casillerosRecorridos = Math.abs(nextCol - col);
+	        	caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
+	        	
 	        	caperucitaState.setPosicionLobo(new int[2]);
 	        	//caperucitaState.agregarCasilleroRecorrido(row,nextCol);
+	        	
 
 	        	return caperucitaState;
 	        }
@@ -56,6 +62,10 @@ public class irDerecha extends SearchAction {
 	        int col = environmentState.getAgentPosition()[1];
 	        
 	        int nextCol = caperucitaState.moverDerecha(row,col);
+	        
+	        //Calculo los casilleros recorridos
+	    	int casillerosRecorridos = Math.abs(nextCol - col);
+	    	caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
    	        	
 	        caperucitaState.setColumnPosition(nextCol);
         	caperucitaState.setPosicionLobo(new int[2]);

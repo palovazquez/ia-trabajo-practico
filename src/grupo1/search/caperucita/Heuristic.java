@@ -25,14 +25,12 @@ import frsf.cidisi.faia.solver.search.NTree;
  * informed search strategy, like A Star or Greedy.
  */
 public class Heuristic implements IEstimatedCostFunction {
-
     /**
      * It returns the estimated cost to reach the goal from a NTree node.
      */
     @Override
     public double getEstimatedCost(NTree node) {
-    	
-    	return (((CaperucitaAgentState) node.getAgentState()).getDistancia() +
-        		((CaperucitaAgentState) node.getAgentState()).getCantidadDeDulcesNoComidos());
+    	return (((CaperucitaAgentState) node.getAgentState()).getDistanciaRecorrida() +
+    			((CaperucitaAgentState) node.getAgentState()).getDistancia());
     }
 }

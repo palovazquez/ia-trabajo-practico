@@ -53,6 +53,10 @@ public class irArribaJuntarDulce extends SearchAction {
         	caperucitaState.setBosque(bosque);
         	caperucitaState.setPosicionLobo(new int[2]);
         	//caperucitaState.agregarCasilleroRecorrido(nextRow,col);
+        	
+        	//Calculo los casilleros recorridos
+        	int casillerosRecorridos = Math.abs(row - nextRow);
+        	caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
                  	
         	return caperucitaState;
         }
@@ -74,6 +78,10 @@ public class irArribaJuntarDulce extends SearchAction {
         int col = environmentState.getAgentPosition()[1];
 
         int nextRow = caperucitaState.moverArriba(row,col);
+        
+        //Calculo los casilleros recorridos
+    	int casillerosRecorridos = Math.abs(row - nextRow);
+    	caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
          
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(nextRow,col);
         int [][] bosque = environmentState.getBosque();

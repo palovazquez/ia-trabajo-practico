@@ -37,11 +37,15 @@ public class irAbajoJuntarDulce extends SearchAction {
         	//seteamos en todos los casilleros por que pasa caperucita al desplazarse hacia abajo que ahora esos casilleros están vacios (=O))
         	for(int[] dulce:listaDulces) bosque[dulce[0]][dulce[1]]=0;
         	
-        	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());;
+        	caperucitaState.setCantidadDulces(caperucitaState.getCantidadDulces()+listaDulces.size());
         	caperucitaState.setBosque(bosque);
         	
         	//Borramos la posción del lobo que se obtuvo en la percepción
         	caperucitaState.setPosicionLobo(new int[2]);
+        	
+        	//Calculo los casilleros recorridos
+	        int casillerosRecorridos = Math.abs(nextRow - row);
+	        caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
         	
         	return caperucitaState;
         }
@@ -62,6 +66,10 @@ public class irAbajoJuntarDulce extends SearchAction {
         int row = environmentState.getAgentPosition()[0];
         int col = environmentState.getAgentPosition()[1];
         int nextRow = caperucitaState.moverAbajo(row,col);
+        
+        //Calculo los casilleros recorridos
+    	int casillerosRecorridos = Math.abs(nextRow - row);
+    	caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
          
         ArrayList<int[]> listaDulces =caperucitaState.pasoPorDulce(nextRow,col);
         int [][] bosque = environmentState.getBosque();

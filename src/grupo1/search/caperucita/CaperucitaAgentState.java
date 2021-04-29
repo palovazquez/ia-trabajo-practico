@@ -34,6 +34,8 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     private int[] posicionLobo;
     private int cantidadDulces;
     private ArrayList<int[]> casillerosRecorridos;
+    //Distancia Recorrida - para función de Costo Uniforme y Heuristica
+    private int distanciaRecorrida;
     private int vidas;
     
     private Escenario escenario;
@@ -41,7 +43,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     public CaperucitaAgentState(int[][] b, int row, int col,int d, int v, ArrayList<int[]> cr) {
         bosque = b;
         posicionActual = new int[] {row, col};
-        posicionInicial = new int[2];
+        //posicionInicial = new int[2];
         posicionLobo = new int[2];
         casillerosRecorridos = cr;
         cantidadDulces = d;
@@ -51,7 +53,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     public CaperucitaAgentState(Escenario escenario) {
         bosque = new int[9][14];
         posicionActual = new int[2];
-        posicionInicial = new int[2];
+        //posicionInicial = new int[2];
         posicionLobo = new int[2];
         casillerosRecorridos = new ArrayList<>();
         cantidadDulces = 0;
@@ -116,7 +118,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
            	this.posicionLobo[1]  = caperucitaPerception.isLoboIzquierda()[1];  
         }
         
-        vidas = caperucitaPerception.getVidas();
+        //vidas = caperucitaPerception.getVidas();
     }
 
     /**
@@ -137,7 +139,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     }
     
     
-    
+    //public int[] getPosicionInicial() {
     public static int[] getPosicionInicial() {
 		return posicionInicial;
 	}
@@ -145,6 +147,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 	public static void setPosicionInicial(int[] posicionInicial) {
 		CaperucitaAgentState.posicionInicial = posicionInicial;
 	}
+	
 
 	public ArrayList<int[]> getCasillerosRecorridos() {
 		return casillerosRecorridos;
@@ -296,6 +299,21 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 	public void setVidas(int vidas) {
 		this.vidas = vidas;
 	}
+	
+	
+	public int getDistanciaRecorrida() {
+		return distanciaRecorrida;
+	}
+	
+	public void incrementarDistanciaRecorrida(int distanciaAProxPosicion) {
+        this.distanciaRecorrida = +distanciaAProxPosicion;
+    }
+	
+	//resetearDistanciaRecorrida se utiliza cuando se pierde una vida
+	public void resetearDistanciaRecorrida() {
+		this.distanciaRecorrida = 0;
+	}
+	
     
     public int moverArriba(int fila, int columna){
         int f=fila;
@@ -464,7 +482,13 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     	double distancia = Math.sqrt(Math.pow(celdaCampoFlores[0]-posicionActual[0],2)+Math.pow(celdaCampoFlores[1]-posicionActual[1],2)); 
         return distancia; 	
     }
-	
+	/*
+	public double getDistanciaAProxPosicion() {
+    	//int[] celdaCampoFlores = this.posCampoFlores();
+    	double distancia = Math.sqrt(Math.pow(celdaCampoFlores[0]-posicionActual[0],2)+Math.pow(celdaCampoFlores[1]-posicionActual[1],2)); 
+        return distancia; 	
+    }
+	*/
 	public int[] posCampoFlores() {
     	int[] celdaCampoFlores = new int[2];
     	 for (int row = 0; row < 9; row++) {

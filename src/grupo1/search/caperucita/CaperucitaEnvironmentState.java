@@ -69,14 +69,15 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
     	int f= rd.nextInt(9);
     	int c= rd.nextInt(14);
     	
-    	if(bosque[f][c]==CaperucitaPerception.VACIO && !(f==caperucitaPosicion[0]&&c==caperucitaPosicion[1])) {
+    	/*if(bosque[f][c]==CaperucitaPerception.VACIO && !(f==caperucitaPosicion[0]&&c==caperucitaPosicion[1])) {
     		lobo[0]=f;
     		lobo[1]=c;
     		return lobo;
     	}else return nuevaPosicionLobo();
+    	*/
     	
     	
-    	//return new int[] {2,5};
+    	return new int[] {2,5};
     }
 
     /**

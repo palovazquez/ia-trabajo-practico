@@ -27,12 +27,16 @@ import frsf.cidisi.faia.solver.search.*;
 import grupo1.escenarios.Escenario;
 import grupo1.search.caperucita.actions.irAbajo;
 import grupo1.search.caperucita.actions.irAbajoJuntarDulce;
+import grupo1.search.caperucita.actions.irAbajoPerderVida;
 import grupo1.search.caperucita.actions.irIzquierda;
 import grupo1.search.caperucita.actions.irIzquierdaJuntarDulce;
+import grupo1.search.caperucita.actions.irIzquierdaPerderVida;
 import grupo1.search.caperucita.actions.irDerecha;
 import grupo1.search.caperucita.actions.irDerechaJuntarDulce;
+import grupo1.search.caperucita.actions.irDerechaPerderVida;
 import grupo1.search.caperucita.actions.irArriba;
 import grupo1.search.caperucita.actions.irArribaJuntarDulce;
+import grupo1.search.caperucita.actions.irArribaPerderVida;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,6 +63,10 @@ public class CaperucitaAgent extends SearchBasedAgent {
         operators.addElement(new irAbajo());
         operators.addElement(new irIzquierdaJuntarDulce());        
         operators.addElement(new irIzquierda());
+        operators.addElement(new irArribaPerderVida());
+        operators.addElement(new irDerechaPerderVida());
+        operators.addElement(new irAbajoPerderVida());
+        operators.addElement(new irIzquierdaPerderVida());
 
         // Create the Problem which the Caperucita will resolve
         Problem problem = new Problem(goal, caperucitaState, operators);
@@ -72,7 +80,7 @@ public class CaperucitaAgent extends SearchBasedAgent {
     public Action selectAction() {
 
         // Create the search strategy
-        //DepthFirstSearch strategy = new DepthFirstSearch();
+        DepthFirstSearch strategy = new DepthFirstSearch();
     	//BreathFirstSearch strategy = new BreathFirstSearch();
         /**
          * Another search strategy examples:
@@ -84,13 +92,13 @@ public class CaperucitaAgent extends SearchBasedAgent {
          * BreathFirstSearch strategy = new BreathFirstSearch();
          * 
          * Uniform Cost:*/
-          //IStepCostFunction costFunction = new CostFunction();
-          //UniformCostSearch strategy = new UniformCostSearch(costFunction);
+         // IStepCostFunction costFunction = new CostFunction();
+         // UniformCostSearch strategy = new UniformCostSearch(costFunction);
          
          // A Star Search:
-          IStepCostFunction cost = new CostFunction();
-          IEstimatedCostFunction heuristic = new Heuristic();
-          AStarSearch strategy = new AStarSearch(cost, heuristic);
+         // IStepCostFunction cost = new CostFunction();
+         // IEstimatedCostFunction heuristic = new Heuristic();
+         // AStarSearch strategy = new AStarSearch(cost, heuristic);
          /* 
          * Greedy Search:
          * IEstimatedCostFunction heuristic = new Heuristic();
@@ -129,4 +137,5 @@ public class CaperucitaAgent extends SearchBasedAgent {
     public void see(Perception p) {
         this.getAgentState().updateState(p);
     }
+    
 }
