@@ -42,7 +42,9 @@ public class irDerechaPerderVida extends SearchAction {
 	        	
 	        	caperucitaState.agregarCasilleroRecorrido(filaInicialCaperucita, columnaInicialCaperucita);
 	        	
-		        
+	        	//Borramos la posción del lobo que se obtuvo en la percepción
+	        	caperucitaState.setPosicionLobo(new int[2]);
+	        	
 		        //Reseteo a 0 la distancia Recorrida
 		        caperucitaState.resetearDistanciaRecorrida();
 		        

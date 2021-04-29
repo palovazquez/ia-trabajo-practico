@@ -77,7 +77,7 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
     	*/
     	
     	
-    	return new int[] {2,5};
+    	return new int[] {2,11};
     }
 
     /**
