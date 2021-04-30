@@ -29,7 +29,7 @@ public class irDerechaJuntarDulce extends SearchAction {
          * en la posición inmediata de derecha no se encuentre un árbol
          * cuando haya dulces en el camino, si no hay dulces debería sólo irDerecha*/
         if (!caperucitaState.hayLoboDerecha(row,col) && caperucitaState.getBosque()[row][col+1]!=1
-        		&& listaDulces.size()>0&&!caperucitaState.recorriCasillero(row,nextCol)) {
+        		&& listaDulces.size()>0&&!caperucitaState.recorriCasillero(row,nextCol) && caperucitaState.getVidas()>0) {
         	
         	caperucitaState.setColumnPosition(nextCol);
         	
@@ -46,6 +46,12 @@ public class irDerechaJuntarDulce extends SearchAction {
 	
         	//Borramos la posción del lobo que se obtuvo en la percepción
         	caperucitaState.setPosicionLobo(new int[2]);
+        	
+        	//Lobo quieto
+	        int[] loboQuieto = new int[2];
+	        loboQuieto[0]=0;
+	        loboQuieto[1]=0;
+	        caperucitaState.setPosicionLobo(loboQuieto);
    	
         	return caperucitaState;
         }

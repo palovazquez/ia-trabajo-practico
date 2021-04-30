@@ -31,6 +31,7 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
     private int[] caperucitaPosicion;
     private int[] loboPosicion;
     private int vidas;
+    private int cantidadDulces;
     
     private Escenario escenario;
 
@@ -59,6 +60,7 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
         this.setAgentPosition(escenario.getPosicionInicialCaperucita());
         this.setVidas(escenario.getVidas());
     	this.setLoboPosition(escenario.getPosicionInicialLobo());
+    	this.setCantidadDulces(escenario.getCantidadDulces());
     }
     
     public int[] nuevaPosicionLobo() {
@@ -69,15 +71,15 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
     	int f= rd.nextInt(9);
     	int c= rd.nextInt(14);
     	
-    	/*if(bosque[f][c]==CaperucitaPerception.VACIO && !(f==caperucitaPosicion[0]&&c==caperucitaPosicion[1])) {
+    	if(bosque[f][c]==CaperucitaPerception.VACIO && !(f==caperucitaPosicion[0]&&c==caperucitaPosicion[1])) {
     		lobo[0]=f;
     		lobo[1]=c;
     		return lobo;
     	}else return nuevaPosicionLobo();
-    	*/
     	
     	
-    	return new int[] {2,11};
+    	
+    	//return new int[] {2,11};
     }
 
     /**
@@ -211,6 +213,14 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
        	
        	return f-1;
        }
+
+	public int getCantidadDulces() {
+		return cantidadDulces;
+	}
+
+	public void setCantidadDulces(int cantidadDulces) {
+		this.cantidadDulces = cantidadDulces;
+	}
 
     	       
     	       

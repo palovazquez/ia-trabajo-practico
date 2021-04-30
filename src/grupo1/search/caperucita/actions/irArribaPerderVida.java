@@ -26,7 +26,7 @@ public class irArribaPerderVida extends SearchAction {
         boolean recorri = caperucitaState.recorriCasillero(nextRow,col);
         
         if (caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]!=CaperucitaPerception.ARBOL
-        		&&!recorri) {
+        		&&!recorri && caperucitaState.getVidas()>0) {
         	
         	//Caperucita vuelve a posición de inicio
         	int filaInicialCaperucita = CaperucitaAgentState.getPosicionInicial()[0];
@@ -51,7 +51,14 @@ public class irArribaPerderVida extends SearchAction {
             
 	        //Caperucita pierde una Vida
 	        caperucitaState.setVidas(caperucitaState.getVidas()-1);
+	        
+	        //Lobo quieto
+	        int[] loboQuieto = new int[2];
+	        loboQuieto[0]=0;
+	        loboQuieto[1]=0;
+	        caperucitaState.setPosicionLobo(loboQuieto);
 	     
+	        System.out.println("Sólo puedo moverme en la dirección del Lobo");
 	        
         	return caperucitaState;
         }
@@ -96,6 +103,7 @@ public class irArribaPerderVida extends SearchAction {
         
         //Caperucita pierde los dulces Recolectados
         caperucitaState.setCantidadDulces(0);
+        environmentState.setCantidadDulces(0);
     	
         //El lobo se mueve
         caperucitaState.setPosicionLobo(new int[2]);
@@ -113,6 +121,6 @@ public class irArribaPerderVida extends SearchAction {
     
     @Override
     public String toString() {
-        return "Pierdo vida, lobo arriba o estoy acorralada";
+        return "Pierdo vida yendo hacia arriba";
     }
 }

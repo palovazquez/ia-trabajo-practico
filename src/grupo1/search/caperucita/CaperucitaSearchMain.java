@@ -47,9 +47,9 @@ public class CaperucitaSearchMain {
     	
     	Escenario[] escenarios = new Escenario[3];
     	
-    	escenarios[0] = new Escenario((new Escenario()).retornarBosque1(),new int[]{5,11},new int[]{2,11},3);
-    	escenarios[1] = new Escenario((new Escenario()).retornarBosque2(),new int[]{5,11},new int[]{6,4},3);
-    	escenarios[2] = new Escenario((new Escenario()).retornarBosque3(),new int[]{5,11},new int[]{6,4},3);
+    	escenarios[0] = new Escenario((new Escenario()).retornarBosque1(),new int[]{5,11},new int[]{6,4},3,0);
+    	escenarios[1] = new Escenario((new Escenario()).retornarBosque2(),new int[]{5,11},new int[]{6,4},3,0);
+    	escenarios[2] = new Escenario((new Escenario()).retornarBosque3(),new int[]{5,11},new int[]{6,4},3,0);
     	    	
     	return escenarios;
     }

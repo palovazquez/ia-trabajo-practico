@@ -29,7 +29,7 @@ public class CaperucitaGoal extends GoalTest {
 
     @Override
     public boolean isGoalState(AgentState agentState) {
-        if (((CaperucitaAgentState) agentState).llegoCampoFlores() ) {
+        if (((CaperucitaAgentState) agentState).llegoCampoFlores() && ((CaperucitaAgentState) agentState).getVidas()>0) {
             return true;
         }
         return false;

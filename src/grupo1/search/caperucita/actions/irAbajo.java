@@ -31,7 +31,7 @@ public class irAbajo extends SearchAction {
 	         * cuando no haya duslces en el camino, si hay dulces debería irAbajoYJuyntqarDulces*/
 	        /*!!!!!!! Ver el == 0 en irArriba*/
 	        if (!caperucitaState.hayLoboAbajo(row,col) && caperucitaState.getBosque()[row+1][col]!=1
-	        		&& listaDulces.size()==0&&!recorri) {
+	        		&& listaDulces.size()==0&&!recorri && caperucitaState.getVidas()>0) {
 	        	
 	        	caperucitaState.setRowPosition(caperucitaState.moverAbajo(row,col));
 	        	caperucitaState.setPosicionLobo(new int[2]);
@@ -40,6 +40,12 @@ public class irAbajo extends SearchAction {
 	        	//Calculo los casilleros recorridos
 		        int casillerosRecorridos = Math.abs(nextRow - row);
 		        caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
+		        
+		        //Lobo quieto
+		        int[] loboQuieto = new int[2];
+		        loboQuieto[0]=0;
+		        loboQuieto[1]=0;
+		        caperucitaState.setPosicionLobo(loboQuieto);
 	        	   	
 	        	return caperucitaState;
 	        }

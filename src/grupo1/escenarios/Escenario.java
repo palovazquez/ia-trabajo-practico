@@ -7,13 +7,15 @@ public class Escenario {
 	private int[] posicionInicialCaperucita;
 	private int[] posicionInicialLobo;
 	private int vidas;
+	private int cantidadDulces;
 	
-	public Escenario(int[][] bosque, int[] posicionInicialCaperucita, int[] posicionInicialLobo, int vidas) {
+	public Escenario(int[][] bosque, int[] posicionInicialCaperucita, int[] posicionInicialLobo, int vidas, int cantDulces) {
 		super();
 		this.bosque = bosque;
 		this.posicionInicialCaperucita = posicionInicialCaperucita;
 		this.posicionInicialLobo = posicionInicialLobo;
 		this.vidas = vidas;
+		this.cantidadDulces = cantDulces;
 	}
 	
 	public Escenario() {
@@ -67,13 +69,13 @@ public class Escenario {
         bosque[1][2] = CaperucitaPerception.ARBOL;
         bosque[1][3] = CaperucitaPerception.DULCE;
         bosque[1][4] = CaperucitaPerception.VACIO;
-        bosque[1][5] = CaperucitaPerception.CAMPOFLORES;
+        bosque[1][5] = CaperucitaPerception.VACIO;
         bosque[1][6] = CaperucitaPerception.VACIO;
         bosque[1][7] = CaperucitaPerception.ARBOL;
         bosque[1][8] = CaperucitaPerception.VACIO;
         bosque[1][9] = CaperucitaPerception.VACIO;
         bosque[1][10] = CaperucitaPerception.DULCE;
-        bosque[1][11] = CaperucitaPerception.CAMPOFLORES;
+        bosque[1][11] = CaperucitaPerception.ARBOL;
         bosque[1][12] = CaperucitaPerception.ARBOL;
         bosque[1][13] = CaperucitaPerception.ARBOL;
 
@@ -88,7 +90,7 @@ public class Escenario {
         bosque[2][8] = CaperucitaPerception.VACIO;
         bosque[2][9] = CaperucitaPerception.VACIO;
         bosque[2][10] = CaperucitaPerception.VACIO;
-        bosque[2][11] = CaperucitaPerception.DULCE;
+        bosque[2][11] = CaperucitaPerception.VACIO;
         bosque[2][12] = CaperucitaPerception.ARBOL;
         bosque[2][13] = CaperucitaPerception.ARBOL;
         
@@ -97,10 +99,10 @@ public class Escenario {
         bosque[3][2] = CaperucitaPerception.ARBOL;
         bosque[3][3] = CaperucitaPerception.VACIO;
         bosque[3][4] = CaperucitaPerception.VACIO;
-        bosque[3][5] = CaperucitaPerception.CAMPOFLORES;
+        bosque[3][5] = CaperucitaPerception.VACIO;
         bosque[3][6] = CaperucitaPerception.VACIO;
         bosque[3][7] = CaperucitaPerception.VACIO;
-        bosque[3][8] = CaperucitaPerception.VACIO;
+        bosque[3][8] = CaperucitaPerception.DULCE;
         bosque[3][9] = CaperucitaPerception.ARBOL;
         bosque[3][10] = CaperucitaPerception.VACIO;
         bosque[3][11] = CaperucitaPerception.VACIO;
@@ -132,7 +134,7 @@ public class Escenario {
         bosque[5][7] = CaperucitaPerception.VACIO;
         bosque[5][8] = CaperucitaPerception.VACIO;
         bosque[5][9] = CaperucitaPerception.VACIO;
-        bosque[5][10] = CaperucitaPerception.ARBOL;
+        bosque[5][10] = CaperucitaPerception.VACIO;
         bosque[5][11] = CaperucitaPerception.VACIO;
         bosque[5][12] = CaperucitaPerception.ARBOL;
         bosque[5][13] = CaperucitaPerception.ARBOL;
@@ -466,6 +468,14 @@ public class Escenario {
         bosque[8][13] = CaperucitaPerception.ARBOL;
         
 		return bosque;
+	}
+
+	public int getCantidadDulces() {
+		return cantidadDulces;
+	}
+
+	public void setCantidadDulces(int cantidadDulces) {
+		this.cantidadDulces = cantidadDulces;
 	}
 
 	

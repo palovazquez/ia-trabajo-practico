@@ -179,7 +179,8 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
         if(posicionLobo==null) str = str + " Posición Lobo=? \n";
         else str = str + " Posición lobo=\"(" + posicionLobo[0] + "," + "" + posicionLobo[1] + ")\"\n\n";
         
-        str = str + "BOSQUE=\"[ \n";
+        //str = str + "BOSQUE=\"[ \n";
+        str = str + "BOSQUE= \n";
         for (int row = 0; row < 9; row++) {
             str = str + "[ ";
             for (int col = 0; col < 14; col++) {
@@ -213,6 +214,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 
 //        int[][] worldObj = ((CaperucitaAgentState) obj).getWorld();
         int[] positionObj = ((CaperucitaAgentState) obj).getPosition();
+        int cantVidas = ((CaperucitaAgentState) obj).getVidas();
 
         /*
         for (int row = 0; row < 9; row++) {
@@ -223,7 +225,8 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
             }
         }*/
 
-        if (posicionActual[0] != positionObj[0] || posicionActual[1] != positionObj[1]) {
+        if ((posicionActual[0] != positionObj[0] || posicionActual[1] != positionObj[1])
+        		|| (vidas != cantVidas) ) {
             return false;
         }
         
@@ -352,8 +355,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     
 	public boolean hayLoboArriba(int fila, int columna) {
 		int f = moverArriba(fila,columna);
-		
-		if(posicionLobo[0]!=0&&posicionLobo[1]!=0) {
+		if(posicionLobo!=null) {
 			if(posicionLobo[1]==columna) {
 			      for(int i=0; i<=fila-f;i++){
 			            if(posicionLobo[0]==(fila-i)) return true;

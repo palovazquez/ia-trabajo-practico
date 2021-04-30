@@ -26,7 +26,8 @@ public class irIzquierdaPerderVida extends SearchAction {
     
 	        /*  */
 	        
-	        if (caperucitaState.hayLoboIzquierda(row,col) && caperucitaState.getBosque()[row][col-1]!=1 &&!recorri) {
+	        if (caperucitaState.hayLoboIzquierda(row,col) && caperucitaState.getBosque()[row][col-1]!=1 
+	        		&&!recorri && caperucitaState.getVidas()>0) {
 	        	int filaInicialCaperucita = CaperucitaAgentState.getPosicionInicial()[0];
 	        	int columnaInicialCaperucita = CaperucitaAgentState.getPosicionInicial()[1];
 	        	caperucitaState.setRowPosition(filaInicialCaperucita);
@@ -49,7 +50,16 @@ public class irIzquierdaPerderVida extends SearchAction {
 		        
 		        //Caperucita pierde una Vida
 		        caperucitaState.setVidas(caperucitaState.getVidas()-1);
+		        
+		        //Lobo quieto
+		        int[] loboQuieto = new int[2];
+		        loboQuieto[0]=0;
+		        loboQuieto[1]=0;
+		        caperucitaState.setPosicionLobo(loboQuieto);
+		        //environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 
+		        System.out.println("Sólo puedo moverme en la dirección del Lobo");
+		        
 	        	return caperucitaState;
 	        }
 	        
@@ -89,6 +99,10 @@ public class irIzquierdaPerderVida extends SearchAction {
         	
         	caperucitaState.agregarCasilleroRecorrido(filaInicialCaperucita, columnaInicialCaperucita);
 
+        	//Caperucita pierde los dulces Recolectados
+            caperucitaState.setCantidadDulces(0);
+            environmentState.setCantidadDulces(0);
+        	
         	//Caperucita pierde una Vida
 	        caperucitaState.setVidas(caperucitaState.getVidas()-1);
 	        environmentState.setVidas(caperucitaState.getVidas());
@@ -113,6 +127,6 @@ public class irIzquierdaPerderVida extends SearchAction {
 	     */
 	    @Override
 	    public String toString() {
-	        return "Pierdo vida, lobo a la izquierda o estoy acorralada";
+	        return "Pierdo vida yendo a la izquierda";
 	    }
 	}

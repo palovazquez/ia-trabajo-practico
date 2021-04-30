@@ -23,7 +23,7 @@ public class irArriba extends SearchAction {
         boolean recorri=caperucitaState.recorriCasillero(nextRow,col);
         /* The agent can only go up when the cell is not empty */
         if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]!=CaperucitaPerception.ARBOL
-        		&& listaDulces.size()==0&&!recorri) {
+        		&& listaDulces.size()==0&&!recorri && caperucitaState.getVidas()>0) {
         	
         	caperucitaState.setRowPosition(caperucitaState.moverArriba(row,col));
         	caperucitaState.setPosicionLobo(new int[2]);
@@ -32,6 +32,12 @@ public class irArriba extends SearchAction {
         	//Calculo los casilleros recorridos
         	int casillerosRecorridos = Math.abs(row - nextRow);
         	caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
+        	
+        	//Lobo quieto
+	        int[] loboQuieto = new int[2];
+	        loboQuieto[0]=0;
+	        loboQuieto[1]=0;
+	        caperucitaState.setPosicionLobo(loboQuieto);
             	
         	return caperucitaState;
         }
@@ -57,12 +63,13 @@ public class irArriba extends SearchAction {
         caperucitaState.setPosicionLobo(new int[2]);
     	caperucitaState.agregarCasilleroRecorrido(nextRow,col);
     	caperucitaState.setRowPosition(nextRow);
-    	
+    	/*
     	System.out.print("ES----- \n");
     	for(int[] c :caperucitaState.getCasillerosRecorridos()) {
     		System.out.print(c[0]+" "+c[1] +" - ");
     	}
     	System.out.print("\n");
+    	*/
 
         environmentState.setAgentPosition(new int[] {nextRow, col});
         environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());

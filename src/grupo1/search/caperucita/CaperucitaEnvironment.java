@@ -74,10 +74,14 @@ public class CaperucitaEnvironment extends Environment {
 
         // FIXME: The caperucita agent always has the same energy
         // If the agent has no energy, he failed
-        if (caperucitaVidas <= 0)
+        if (caperucitaVidas <= 0) {
+        	System.out.println("GAME OVER, ME QUEDÉ SIN VIDAS");
             return true;
-
-        return false;
+        }
+        else {
+        	return false;	
+        }
+        
     }
 
     // The following methods are Caperucita-specific:

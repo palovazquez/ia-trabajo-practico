@@ -43,7 +43,7 @@ public class irArribaJuntarDulce extends SearchAction {
      
         /* The agent can only go up when the cell is not empty */
         if (!caperucitaState.hayLoboArriba(row,col) && caperucitaState.getBosque()[row-1][col]!=1
-        		&& listaDulces.size()>0&&!caperucitaState.recorriCasillero(nextRow,col)) {
+        		&& listaDulces.size()>0&&!caperucitaState.recorriCasillero(nextRow,col) && caperucitaState.getVidas()>0) {
         	
         	caperucitaState.setRowPosition(nextRow);
         	
@@ -57,6 +57,12 @@ public class irArribaJuntarDulce extends SearchAction {
         	//Calculo los casilleros recorridos
         	int casillerosRecorridos = Math.abs(row - nextRow);
         	caperucitaState.incrementarDistanciaRecorrida(casillerosRecorridos);
+        	
+        	//Lobo quieto
+	        int[] loboQuieto = new int[2];
+	        loboQuieto[0]=0;
+	        loboQuieto[1]=0;
+	        caperucitaState.setPosicionLobo(loboQuieto);
                  	
         	return caperucitaState;
         }
