@@ -78,8 +78,7 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
     	}else return nuevaPosicionLobo();
     	
     	
-    	
-    	//return new int[] {2,11};
+    	//return new int[] {4,5};
     }
 
     /**
@@ -183,35 +182,44 @@ public class CaperucitaEnvironmentState extends EnvironmentState {
         int f=fila;
            do{
                f=f-1;
-           }while (bosque[f][columna]!=1);
-           
-           return f+1;
+           }while ((bosque[f][columna]==0 || bosque[f][columna]==2));
+          	if (bosque[f][columna]==1) {
+          		return f+1;
+          	}
+          	return f;
        };
        
-   public int moverIzquierda(int fila, int columna){
+       public int moverIzquierda(int fila, int columna){
        	int c=columna;
        	do{
        		c=c-1;
-       	}while (bosque[fila][c]!=1);
-       	        
-       	return c+1;
+       	}while (bosque[fila][c]==0 || bosque[fila][c]==2);
+       	if (bosque[fila][c]==1) {
+       		return c+1;
+       	}
+       	return c;
        };
     	    
        public int moverDerecha(int fila, int columna){
        	int c=columna;
        	do{
        		c=c+1;
-       		}while (bosque[fila][c]!=1);  
-       	return c-1;
+       		}while (bosque[fila][c]==0 || bosque[fila][c]==2);
+       	if (bosque[fila][c]==1) {
+       		return c-1;
+       	}
+       	return c;
        };
 
        public int moverAbajo(int fila, int columna){
        	int f=fila;
        	do{
        		f=f+1;
-       	}while (bosque[f][columna]!=1);
-       	
-       	return f-1;
+       	}while ((bosque[f][columna]==0 || bosque[f][columna]==2));
+       	if (bosque[f][columna]==1) {
+       		return f-1;
+       	}
+       	return f;
        }
 
 	public int getCantidadDulces() {

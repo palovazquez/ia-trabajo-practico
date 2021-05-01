@@ -59,7 +59,7 @@ public class irAbajoPerderVida extends SearchAction {
 		        loboQuieto[0]=0;
 		        loboQuieto[1]=0;
 		        caperucitaState.setPosicionLobo(loboQuieto);
-		        
+
 		        System.out.println("Sólo puedo moverme en la dirección del Lobo");
 	        	   	
 	        	return caperucitaState;

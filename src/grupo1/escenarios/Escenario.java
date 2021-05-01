@@ -319,7 +319,7 @@ public class Escenario {
         bosque[8][5] = CaperucitaPerception.ARBOL;
         bosque[8][6] = CaperucitaPerception.CAMPOFLORES;
         bosque[8][7] = CaperucitaPerception.ARBOL;
-        bosque[8][8] = CaperucitaPerception.VACIO;
+        bosque[8][8] = CaperucitaPerception.ARBOL;
         bosque[8][9] = CaperucitaPerception.ARBOL;
         bosque[8][10] = CaperucitaPerception.ARBOL;
         bosque[8][11] = CaperucitaPerception.ARBOL;
