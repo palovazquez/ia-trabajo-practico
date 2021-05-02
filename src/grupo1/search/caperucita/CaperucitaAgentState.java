@@ -489,7 +489,7 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
 		this.casillerosRecorridos.add(new int[]{row,col});
 	}
 
-	public double getDistancia() {
+	public double getDistanciaEuclideaACampoDeFlores() {
     	int[] celdaCampoFlores = this.posCampoFlores();
     	double distancia = Math.sqrt(Math.pow(celdaCampoFlores[0]-posicionActual[0],2)+Math.pow(celdaCampoFlores[1]-posicionActual[1],2)); 
         return distancia; 	
