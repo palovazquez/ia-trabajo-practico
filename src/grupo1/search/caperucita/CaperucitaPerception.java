@@ -111,9 +111,9 @@ public class CaperucitaPerception extends Perception {
     public String toString() {
         StringBuffer str = new StringBuffer();
 
-        str.append("Vidas: " + this.vidas);
-        str.append("; ");
-        
+        /*str.append("Vidas: " + this.vidas);
+        str.append("; ");*/
+        str.append("\n¿Lobo Estás?: ");
         
         if(this.loboArriba!=null) str.append("Sensor Arriba: [" + this.loboArriba[0] + ","+this.loboArriba[1] + "]");
         else str.append("Sensor Arriba: - ");
@@ -126,7 +126,8 @@ public class CaperucitaPerception extends Perception {
         str.append("; ");
         if(this.loboIzquierda!=null) str.append("Sensor Izquierda: [" + this.loboIzquierda[0] + ","+this.loboIzquierda[1] + "]");
         else str.append("Sensor Izquierda: - ");
-        str.append("; ");
+        str.append(";");
+        //str.append("; \n");
         
         return str.toString();
     }

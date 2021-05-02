@@ -58,7 +58,7 @@ public class irIzquierdaPerderVida extends SearchAction {
 		        caperucitaState.setPosicionLobo(loboQuieto);
 		        //environmentState.setLoboPosition(environmentState.nuevaPosicionLobo());
 
-		        System.out.println("Sólo puedo moverme en la dirección del Lobo");
+		        //System.out.println("Sólo puedo moverme en la dirección del Lobo");
 		        
 	        	return caperucitaState;
 	        }
@@ -127,6 +127,6 @@ public class irIzquierdaPerderVida extends SearchAction {
 	     */
 	    @Override
 	    public String toString() {
-	        return "Pierdo vida yendo a la izquierda";
+	        return "IrIzquierdaPerderVida  - me come el lobo";
 	    }
 	}

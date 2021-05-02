@@ -172,9 +172,10 @@ public class CaperucitaAgentState extends SearchBasedAgentState {
     public String toString() {
         String str = "";
 
-        str = str + " Posición=\"(" + getRowPosition() + "," + "" + getColumnPosition() + ")\"";
+        str = str + " Posición Caperucita=\"(" + getRowPosition() + "," + "" + getColumnPosition() + ")\"";
         str = str + " Cantidad Dulces=\"" + cantidadDulces + "\"";
-        str = str + " Vidas=\"" + vidas + "\"";
+        str = str + " Puntos= \"" + cantidadDulces * 10 + "\"" ;
+        str = str + " Vidas=\"" + vidas + "\"" ;
 
         if(posicionLobo==null) str = str + " Posición Lobo=? \n";
         else str = str + " Posición lobo=\"(" + posicionLobo[0] + "," + "" + posicionLobo[1] + ")\"\n\n";
